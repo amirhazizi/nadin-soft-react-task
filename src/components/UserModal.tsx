@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   Typography,
+  FormLabel,
 } from "@mui/material"
 import { updateUser } from "../redux/storeSlicer"
 import { RootState } from "../redux/store"
@@ -36,14 +37,18 @@ const UserModal = () => {
             bgcolor: "primary.main",
             boxShadow: 24,
             width: "70%",
-            display: "grid",
+            display: "flex",
+            flexDirection: "column",
             p: "1rem",
             borderRadius: "1rem",
           }}
         >
-          <Typography>Enter Your Username...</Typography>
           <FormControl sx={{ my: "1rem" }}>
+            <FormLabel htmlFor='input' sx={{ mb: 2 }}>
+              Enter Your Username...
+            </FormLabel>
             <TextField
+              id='input'
               onChange={(e) => {
                 const value = e.target.value
                 setUserInput(value)
@@ -61,6 +66,9 @@ const UserModal = () => {
           <Button
             sx={{
               color: "green",
+              alignSelf: "center",
+              p: 2,
+              py: 1,
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
