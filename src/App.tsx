@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
-import Home from "./components/Home" //home component
+import Home from "./components/Dashboard" //home component
 import SharedLayout from "./components/SharedLayout" //sharedLayout component
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
