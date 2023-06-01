@@ -11,7 +11,7 @@ type InitialStateType = {
     editContent: string
   }
 }
-const initialState: InitialStateType = {
+export const initialState: InitialStateType = {
   user: "",
   theme: "light",
   city: "tehran",
@@ -58,6 +58,13 @@ export const storeSlicer = createSlice({
       state.todoList.editID = 0
       state.todoList.editContent = ""
     },
+    getFromLocalStorage: (state, action) => {
+      // for some reason state update like this!!!
+      state.user = action.payload.user
+      state.todoList = action.payload.todoList
+      state.theme = action.payload.theme
+      state.city = action.payload.city
+    },
   },
 })
 export const {
@@ -67,5 +74,6 @@ export const {
   resetTodos,
   finishEditTodo,
   startEditTodo,
+  getFromLocalStorage,
 } = storeSlicer.actions
 export default storeSlicer.reducer
