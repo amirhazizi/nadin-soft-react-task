@@ -1,5 +1,7 @@
 import { Typography, Box } from "@mui/material" //mui
 import { useState, useEffect } from "react" //react hooks
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 // greeting changer based on time hour
 const greetingChanger = (time: Date) => {
@@ -9,11 +11,10 @@ const greetingChanger = (time: Date) => {
   return "Good evening"
 }
 
-const user = "Amir Hosssein" // redux user name
-
-const Home = () => {
+const Dashboard = () => {
   const [time, setTime] = useState(new Date()) // time state
   const [greeting, setGreeting] = useState(greetingChanger(time)) // greeting state based on time
+  const user = useSelector((state: RootState) => state.storeReducer.user) // user name
 
   // run after intial render or user re-render
   useEffect(() => {
@@ -44,4 +45,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Dashboard
