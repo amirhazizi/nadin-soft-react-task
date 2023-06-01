@@ -36,7 +36,8 @@ const Dashboard = () => {
   return (
     <Box sx={{ textAlign: "center", display: "grid", gap: ".75rem 0" }}>
       <Typography variant='h1'>
-        {time.getHours()}:{time.getMinutes()}
+        {time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:
+        {time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}
       </Typography>
       <Typography>
         {greeting}, {user}

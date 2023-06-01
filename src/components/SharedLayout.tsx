@@ -1,19 +1,20 @@
-import { Outlet, NavLink } from "react-router-dom"
+import { Outlet, NavLink } from "react-router-dom" // react router
 
-import { useSelector } from "react-redux"
-import { RootState } from "../redux/store"
+import { useSelector } from "react-redux" // state selector
 
-import UserModal from "./UserModal"
+import UserModal from "./UserModal" // user modal
 
-import { Divider, Container } from "@mui/material"
+import { Container } from "@mui/material" // mui container
+import { RootState } from "../redux/store" // state type (typescript required)
 
 const SharedLayout = () => {
+  const user = useSelector((state: RootState) => state.storeReducer.user) // user state
   return (
     <Container>
-      <UserModal />
-      <Divider sx={{ pt: "2rem" }}>
+      {!user && <UserModal />}
+      <section className='mt-20'>
         <Outlet />
-      </Divider>
+      </section>
     </Container>
   )
 }

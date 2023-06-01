@@ -58,7 +58,16 @@ const UserModal = () => {
               color='info'
             />
           </FormControl>
-          <Button sx={{ color: "green" }} type='submit'>
+          <Button
+            sx={{
+              color: "green",
+              ":hover": {
+                bgcolor: "green",
+                color: "primary.main",
+              },
+            }}
+            type='submit'
+          >
             submit
           </Button>
         </Box>
