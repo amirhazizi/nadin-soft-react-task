@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
-import Home from "./components/Dashboard" //home component
+import Dashboard from "./components/Dashboard" //home component
 import SharedLayout from "./components/SharedLayout" //sharedLayout component
+
+import TodoList from "./components/todoList"
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
 
@@ -31,7 +33,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SharedLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='todolist' element={<TodoList />} />
           </Route>
         </Routes>
       </BrowserRouter>
