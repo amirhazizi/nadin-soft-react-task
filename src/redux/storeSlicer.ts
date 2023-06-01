@@ -29,7 +29,43 @@ export const storeSlicer = createSlice({
     updateUser: (state, action) => {
       state.user = action.payload
     },
+    addNewTodo: (state, action) => {
+      const newTodo = { content: action.payload, id: new Date().getTime() }
+      state.todoList.todos = [...state.todoList.todos, newTodo]
+    },
+    removeTodo: (state, action) => {
+      const newTodos = state.todoList.todos.filter(
+        (todo) => todo.id !== action.payload
+      )
+      state.todoList.todos = newTodos
+    },
+    resetTodos: (state) => {
+      state.todoList.todos = []
+    },
+    startEditTodo: (state, action) => {
+      state.todoList.isEdit = true
+      state.todoList.editID = action.payload.id
+      state.todoList.editContent = action.payload.content
+    },
+    finishEditTodo: (state, action) => {
+      const newTodos = state.todoList.todos.map((todo) => {
+        if (todo.id === state.todoList.editID)
+          return { ...todo, content: action.payload }
+        return todo
+      })
+      state.todoList.todos = newTodos
+      state.todoList.isEdit = false
+      state.todoList.editID = 0
+      state.todoList.editContent = ""
+    },
   },
 })
-export const { updateUser } = storeSlicer.actions
+export const {
+  updateUser,
+  addNewTodo,
+  removeTodo,
+  resetTodos,
+  finishEditTodo,
+  startEditTodo,
+} = storeSlicer.actions
 export default storeSlicer.reducer

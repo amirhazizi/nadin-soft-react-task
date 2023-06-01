@@ -55,7 +55,7 @@ const UserModal = () => {
               error={isEmpty}
               label='username'
               variant='outlined'
-              color='info'
+              color='success'
             />
           </FormControl>
           <Button

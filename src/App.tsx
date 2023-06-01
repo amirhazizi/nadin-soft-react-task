@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
-import Dashboard from "./components/Dashboard" //home component
-import SharedLayout from "./components/SharedLayout" //sharedLayout component
+import Dashboard from "./components/Dashboard" //Dashboard component
+import SharedLayout from "./components/SharedLayout" //SharedLayout component
 
-import TodoList from "./components/todoList"
+import TodoList from "./components/todoList" // TodoList component
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
 
