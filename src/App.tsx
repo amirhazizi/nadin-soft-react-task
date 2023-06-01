@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
 import Dashboard from "./components/Dashboard" //Dashboard component
 import SharedLayout from "./components/SharedLayout" //SharedLayout component
 
-import TodoList from "./components/todoList" // TodoList component
+import TodoList from "./components/TodoList" // TodoList component
+import Weathermeteo from "./components/Weathermeteo" // weather component
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
 
@@ -36,6 +37,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='todolist' element={<TodoList />} />
+            <Route path='Weather' element={<Weathermeteo />} />
           </Route>
         </Routes>
       </BrowserRouter>

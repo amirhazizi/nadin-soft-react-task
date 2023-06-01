@@ -30,7 +30,7 @@ const SharedLayout = () => {
   // set localStorage State on redux
   useEffect(() => {
     dispatch(getFromLocalStorage(localStorageState))
-  }, [])
+  }, [dispatch, localStorageState])
 
   return (
     <Container>
