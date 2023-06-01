@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
 import Dashboard from "./components/Dashboard" //Dashboard component
 import SharedLayout from "./components/SharedLayout" //SharedLayout component
 
-import TodoList from "./components/TodoList" // TodoList component
+import TodoList from "./components/TododoList" // TodoList component
 import Weathermeteo from "./components/Weathermeteo" // weather component
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules

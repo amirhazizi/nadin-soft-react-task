@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Box,
-  Typography,
   FormLabel,
 } from "@mui/material"
 import { updateUser } from "../redux/storeSlicer"
