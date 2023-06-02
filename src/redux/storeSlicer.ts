@@ -14,7 +14,7 @@ type InitialStateType = {
 export const initialState: InitialStateType = {
   user: "",
   theme: "light",
-  city: "tehran",
+  city: "",
   todoList: {
     todos: [{ content: "test", id: 5000 }],
     isEdit: false,
