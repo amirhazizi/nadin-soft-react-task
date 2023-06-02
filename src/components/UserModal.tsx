@@ -1,32 +1,36 @@
-import { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react" //react hooks
+
+import { useSelector, useDispatch } from "react-redux" // redux
+import { updateUser } from "../redux/storeSlicer" // redux dispatch
+import { RootState } from "../redux/store" // redux state type
+
 import {
   Modal,
   FormControl,
   TextField,
   Button,
   Box,
-  Typography,
-} from "@mui/material"
-import { updateUser } from "../redux/storeSlicer"
-import { RootState } from "../redux/store"
-const UserModal = () => {
-  const [userInput, setUserInput] = useState("")
-  const [isEmpty, setIsEmpty] = useState(false)
+  FormLabel,
+} from "@mui/material" //mui staff
 
-  const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.storeReducer.user)
+const UserModal = () => {
+  const [userInput, setUserInput] = useState<string>() // input value
+  const [isEmpty, setIsEmpty] = useState(false) // input empty checker
+
+  const dispatch = useDispatch() //dispatch f()
+  const user = useSelector((state: RootState) => state.storeReducer.user) // user state from redux
 
   const submitHandle = (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!userInput) return
-    dispatch(updateUser(userInput))
-  }
+    if (!userInput) return // return of input was empty
+    dispatch(updateUser(userInput)) // update user name state with input value
+  } // form submit handler
 
   return (
     <Modal open={user ? false : true}>
+      {/* form */}
       <form className='user-form' onSubmit={submitHandle}>
+        {/* form container */}
         <Box
           sx={{
             position: "absolute",
@@ -36,14 +40,21 @@ const UserModal = () => {
             bgcolor: "primary.main",
             boxShadow: 24,
             width: "70%",
-            display: "grid",
+            display: "flex",
+            flexDirection: "column",
             p: "1rem",
             borderRadius: "1rem",
           }}
         >
-          <Typography>Enter Your Username...</Typography>
+          {/* label and input container */}
           <FormControl sx={{ my: "1rem" }}>
+            {/* label */}
+            <FormLabel htmlFor='input' sx={{ mb: 2 }}>
+              Enter Your Username...
+            </FormLabel>
+            {/* input */}
             <TextField
+              id='input'
               onChange={(e) => {
                 const value = e.target.value
                 setUserInput(value)
@@ -55,12 +66,18 @@ const UserModal = () => {
               error={isEmpty}
               label='username'
               variant='outlined'
-              color='info'
+              color='success'
             />
           </FormControl>
+          {/* end of label and input container */}
+          {/* submit btn */}
           <Button
+            disabled={userInput ? false : true}
             sx={{
               color: "green",
+              alignSelf: "center",
+              p: 2,
+              py: 1,
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
@@ -72,6 +89,7 @@ const UserModal = () => {
           </Button>
         </Box>
       </form>
+      {/* end of form */}
     </Modal>
   )
 }

@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
-import Home from "./components/Dashboard" //home component
-import SharedLayout from "./components/SharedLayout" //sharedLayout component
+import Dashboard from "./components/Dashboard" //Dashboard component
+import SharedLayout from "./components/SharedLayout" //SharedLayout component
+
+import TodoList from "./components/TododoList" // TodoList component
+import Weathermeteo from "./components/Weathermeteo" // weather component
 
 import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
 
@@ -13,7 +16,7 @@ const lightTheme = createTheme({
       main: "#030303",
     },
   },
-})
+}) // light theme
 const darkTheme = createTheme({
   palette: {
     primary: {
@@ -23,7 +26,7 @@ const darkTheme = createTheme({
       main: "#ffffff",
     },
   },
-})
+}) // dark theme
 
 function App() {
   return (
@@ -31,7 +34,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SharedLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<Dashboard />} />
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='todolist' element={<TodoList />} />
+            <Route path='Weather' element={<Weathermeteo />} />
           </Route>
         </Routes>
       </BrowserRouter>
