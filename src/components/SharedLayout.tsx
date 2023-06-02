@@ -22,7 +22,7 @@ const SharedLayout = () => {
     initialState
   ) // local Storage
 
-  //update localStorages
+  //update localStoragess
   useEffect(() => {
     saveLocalStorageState({ user, city, theme, todoList })
   }, [user, city, theme, todoList, saveLocalStorageState])
