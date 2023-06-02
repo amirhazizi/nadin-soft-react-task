@@ -16,7 +16,7 @@ const lightTheme = createTheme({
       main: "#030303",
     },
   },
-})
+}) // light theme
 const darkTheme = createTheme({
   palette: {
     primary: {
@@ -26,7 +26,7 @@ const darkTheme = createTheme({
       main: "#ffffff",
     },
   },
-})
+}) // dark theme
 
 function App() {
   return (

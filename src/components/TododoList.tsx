@@ -8,12 +8,12 @@ import {
   removeTodo,
   resetTodos,
   startEditTodo,
-} from "../redux/storeSlicer"
-import { RootState } from "../redux/store"
+} from "../redux/storeSlicer" // redux dispatch methods
+import { RootState } from "../redux/store" //state root type
 
 // react icons
-import { TiDelete } from "react-icons/ti"
-import { MdModeEditOutline } from "react-icons/md"
+import { TiDelete } from "react-icons/ti" //delete icon
+import { MdModeEditOutline } from "react-icons/md" // edit icon
 
 import {
   Box,
@@ -90,6 +90,7 @@ const TodoList = () => {
             }}
           />
           <Button
+            disabled={inputValue ? false : true}
             sx={{
               color: "green",
               width: "20%",
@@ -104,6 +105,8 @@ const TodoList = () => {
           </Button>
         </FormControl>
       </form>
+      {/* end of form */}
+
       {/* todos container */}
       {todos.length > 0 && (
         <Box ref={parent}>
@@ -154,6 +157,7 @@ const TodoList = () => {
           </Button>
         </Box>
       )}
+      {/* end of todos container */}
     </Box>
   )
 }

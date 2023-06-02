@@ -1,5 +1,9 @@
-import { useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react" //react hooks
+
+import { useSelector, useDispatch } from "react-redux" // redux
+import { updateUser } from "../redux/storeSlicer" // redux dispatch
+import { RootState } from "../redux/store" // redux state type
+
 import {
   Modal,
   FormControl,
@@ -7,26 +11,26 @@ import {
   Button,
   Box,
   FormLabel,
-} from "@mui/material"
-import { updateUser } from "../redux/storeSlicer"
-import { RootState } from "../redux/store"
-const UserModal = () => {
-  const [userInput, setUserInput] = useState("")
-  const [isEmpty, setIsEmpty] = useState(false)
+} from "@mui/material" //mui staff
 
-  const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.storeReducer.user)
+const UserModal = () => {
+  const [userInput, setUserInput] = useState<string>() // input value
+  const [isEmpty, setIsEmpty] = useState(false) // input empty checker
+
+  const dispatch = useDispatch() //dispatch f()
+  const user = useSelector((state: RootState) => state.storeReducer.user) // user state from redux
 
   const submitHandle = (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!userInput) return
-    dispatch(updateUser(userInput))
-  }
+    if (!userInput) return // return of input was empty
+    dispatch(updateUser(userInput)) // update user name state with input value
+  } // form submit handler
 
   return (
     <Modal open={user ? false : true}>
+      {/* form */}
       <form className='user-form' onSubmit={submitHandle}>
+        {/* form container */}
         <Box
           sx={{
             position: "absolute",
@@ -42,10 +46,13 @@ const UserModal = () => {
             borderRadius: "1rem",
           }}
         >
+          {/* label and input container */}
           <FormControl sx={{ my: "1rem" }}>
+            {/* label */}
             <FormLabel htmlFor='input' sx={{ mb: 2 }}>
               Enter Your Username...
             </FormLabel>
+            {/* input */}
             <TextField
               id='input'
               onChange={(e) => {
@@ -62,7 +69,10 @@ const UserModal = () => {
               color='success'
             />
           </FormControl>
+          {/* end of label and input container */}
+          {/* submit btn */}
           <Button
+            disabled={userInput ? false : true}
             sx={{
               color: "green",
               alignSelf: "center",
@@ -79,6 +89,7 @@ const UserModal = () => {
           </Button>
         </Box>
       </form>
+      {/* end of form */}
     </Modal>
   )
 }
