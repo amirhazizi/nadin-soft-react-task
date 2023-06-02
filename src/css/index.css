@@ -11,3 +11,7 @@
 .todo-btn {
     transform: scale(1.95);
 }
+
+section>div {
+    max-width: 900px;
+}

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom" //react-router
 import Dashboard from "./components/Dashboard" // dashboard component
 import SharedLayout from "./components/SharedLayout" // sharedLayout component
-import TodoList from "./components/TododoList" // todoList component
+import TodoList from "./components/TodoList" // todoList component
 import Weathermeteo from "./components/Weathermeteo" // weather component
 import Profile from "./components/Profile" // profile component
 

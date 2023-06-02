@@ -1,7 +1,11 @@
-import { Typography, Box } from "@mui/material" //mui
 import { useState, useEffect } from "react" //react hooks
-import { useSelector } from "react-redux"
-import { RootState } from "../redux/store"
+
+import { Typography, Box } from "@mui/material" //mui
+
+import { useSelector } from "react-redux" //redux state selector
+import { RootState } from "../redux/store" // root State type
+
+import { lightTheme } from "../themes" // themes
 
 // greeting changer based on time hour
 const greetingChanger = (time: Date) => {
@@ -40,13 +44,34 @@ const Dashboard = () => {
         display: "grid",
         gap: ".75rem 0",
         color: "secondary.main",
+        maxWidth: "25rem",
+        mx: "auto",
+        [lightTheme.breakpoints.up("md")]: {
+          maxWidth: "35rem",
+        },
       }}
     >
-      <Typography variant='h1'>
+      <Typography
+        sx={{
+          fontSize: "6rem",
+          [lightTheme.breakpoints.up("md")]: {
+            fontSize: "8rem",
+          },
+        }}
+        variant='h1'
+      >
         {time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:
         {time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}
       </Typography>
-      <Typography>
+      <Typography
+        sx={{
+          fontSize: "2rem",
+          [lightTheme.breakpoints.up("md")]: {
+            fontSize: "2.5rem",
+          },
+        }}
+        variant='h2'
+      >
         {greeting}, {user}
       </Typography>
     </Box>

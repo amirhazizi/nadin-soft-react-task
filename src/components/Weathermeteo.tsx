@@ -18,6 +18,7 @@ import axios from "axios" //axios
 import weatherCodeChecker from "../weatherCodeChecker" //weather code to weather type f()
 
 import loadingBar from "../assests/Eclipse-loading.svg?url" // svg animate loading bar
+import { lightTheme } from "../themes" // themes
 
 const baseGetWeatherURL = "https://api.open-meteo.com/v1" //baseURL getWeather
 const baseGetLocationURL = "https://geocoding-api.open-meteo.com/v1/" //baseURL getlocation by city
@@ -31,7 +32,7 @@ const autoGetWeatherFetch = axios.create({
   headers: { Accept: "application/json" },
 }) // custom axios for weather req
 
-const intialCity = { city: "loading...", temp: -1, weather: "loading" } // initial state for initial page render
+const intialCity = { city: "loading...", temp: -1, weather: "loading.." } // initial state for initial page render
 
 const Weathermeteo = () => {
   const city = useSelector((state: RootState) => state.storeReducer.city) //city state from redux
@@ -68,8 +69,7 @@ const Weathermeteo = () => {
     }
   } // fetch weather from city name
   useEffect(() => {
-    fetchWeather(city)
-    console.log(city)
+    city && fetchWeather(city)
   }, [city]) // run scope if city state changes
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -79,7 +79,18 @@ const Weathermeteo = () => {
     setUserInput("") // clear input value
   } // submit form handle f()
   return (
-    <Box sx={{ display: "grid", gap: "4rem 0" }}>
+    <Box
+      sx={{
+        display: "grid",
+        gap: "4rem 0",
+        maxWidth: "25rem",
+        mx: "auto",
+        [lightTheme.breakpoints.up("md")]: {
+          maxWidth: "35rem",
+          minWidth: "30rem",
+        },
+      }}
+    >
       {/* form */}
       <form onSubmit={handleSubmit}>
         {/* form container */}

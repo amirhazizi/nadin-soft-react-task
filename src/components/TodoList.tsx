@@ -15,6 +15,8 @@ import { RootState } from "../redux/store" //state root type
 import { TiDelete } from "react-icons/ti" //delete icon
 import { MdModeEditOutline } from "react-icons/md" // edit icon
 
+import { lightTheme } from "../themes" // themes
+
 import {
   Box,
   TextField,
@@ -54,6 +56,12 @@ const TodoList = () => {
         border: "2px solid transparent",
         borderColor: "secondary.main",
         color: "secondary.main",
+        maxWidth: "25rem",
+        mx: "auto",
+        [lightTheme.breakpoints.up("md")]: {
+          maxWidth: "32rem",
+          minWidth: "30rem",
+        },
       }}
     >
       {/* header */}
@@ -66,6 +74,9 @@ const TodoList = () => {
           fontWeight: 700,
           borderBottom: "2px solid transparent",
           borderColor: "secondary.main",
+          [lightTheme.breakpoints.up("md")]: {
+            fontSize: "3rem",
+          },
         }}
       >
         TODO List
@@ -162,7 +173,7 @@ const TodoList = () => {
                 }}
               >
                 {/* todo content */}
-                <Typography variant='h4'>{content}</Typography>
+                <Typography sx={{ fontSize: "1.5rem" }}>{content}</Typography>
                 {/* todos btn container */}
                 <Box sx={{ display: "flex", gap: "0 .5rem" }}>
                   {/* start edit single todo btn  */}
