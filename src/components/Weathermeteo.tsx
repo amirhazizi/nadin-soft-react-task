@@ -38,6 +38,7 @@ const Weathermeteo = () => {
   const dispatch = useDispatch() //dispatch
   const [userCity, setUserCity] = useState(intialCity) //city weather info
   const [userInput, setUserInput] = useState("") // input value
+  const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
   const [isLoading, setIsLoading] = useState(true) // loadingBar toggle
 
   const fetchWeather = async (cityParam: string) => {
@@ -93,23 +94,48 @@ const Weathermeteo = () => {
           {/* input */}
           <TextField
             value={userInput}
-            sx={{ width: "75%" }}
-            onChange={(e) => setUserInput(e.target.value)}
+            error={isEmpty}
+            sx={{
+              width: "75%",
+
+              "& label": { color: "secondary.main", px: 0.2 },
+              borderBottom: "3px solid transparent",
+              borderColor: "secondary.main",
+            }}
+            onChange={(e) => {
+              const value = e.target.value
+              setUserInput(value)
+              setIsEmpty(() => {
+                if (value) return false
+                return true
+              })
+            }}
             variant='standard'
             label='Enter City'
-            color='info'
+            color='success'
+            inputProps={{
+              sx: {
+                color: "secondary.main",
+                paddingLeft: 1,
+                fontSize: "1.2rem",
+              },
+            }}
           />
+
           {/* submit btn */}
           <Button
             disabled={userInput ? false : true}
             sx={{
               color: "green",
-              alignSelf: "end",
+              alignSelf: "stretch",
               p: 3,
               py: 1,
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
+              },
+              ":disabled": {
+                color: "primary.light",
               },
             }}
             type='submit'
@@ -132,6 +158,8 @@ const Weathermeteo = () => {
             border: "2px solid transparent",
             borderRadius: "1rem",
             borderColor: "secondary.main",
+            color: "secondary.main",
+            bgcolor: "primary.main",
             boxShadow: 0,
             minWidth: "17.5rem",
             minHeight: "19rem",

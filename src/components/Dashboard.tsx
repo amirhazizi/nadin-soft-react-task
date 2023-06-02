@@ -34,7 +34,14 @@ const Dashboard = () => {
     return () => clearInterval(loop) //cleanup useEffect function
   }, [])
   return (
-    <Box sx={{ textAlign: "center", display: "grid", gap: ".75rem 0" }}>
+    <Box
+      sx={{
+        textAlign: "center",
+        display: "grid",
+        gap: ".75rem 0",
+        color: "secondary.main",
+      }}
+    >
       <Typography variant='h1'>
         {time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:
         {time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}

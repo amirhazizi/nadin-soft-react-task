@@ -30,6 +30,7 @@ const TodoList = () => {
   const todos = useSelector(
     (state: RootState) => state.storeReducer.todoList.todos
   ) //todos redux state
+  const theme = useSelector((state: RootState) => state.storeReducer.theme) //theme redux state
   const isEdit = useSelector(
     (state: RootState) => state.storeReducer.todoList.editID
   ) //isEdir flag redux state
@@ -46,7 +47,15 @@ const TodoList = () => {
     setInputValue("") // empty textfield
   }
   return (
-    <Box sx={{ display: "grid", gap: ".5rem 0", border: "2px solid black" }}>
+    <Box
+      sx={{
+        display: "grid",
+        gap: ".5rem 0",
+        border: "2px solid transparent",
+        borderColor: "secondary.main",
+        color: "secondary.main",
+      }}
+    >
       {/* header */}
       <Typography
         variant='h1'
@@ -55,7 +64,8 @@ const TodoList = () => {
           fontSize: "2rem",
           p: 1,
           fontWeight: 700,
-          borderBottom: "2px solid black",
+          borderBottom: "2px solid transparent",
+          borderColor: "secondary.main",
         }}
       >
         TODO List
@@ -74,7 +84,12 @@ const TodoList = () => {
           }}
         >
           <TextField
-            sx={{ width: "75%" }}
+            sx={{
+              width: "75%",
+              "& label": { color: "secondary.main", px: 0.2 },
+              borderBottom: "3px solid transparent",
+              borderColor: "secondary.main",
+            }}
             variant='standard'
             label='new todos'
             error={isEmpty}
@@ -88,15 +103,26 @@ const TodoList = () => {
                 return true
               })
             }}
+            inputProps={{
+              sx: {
+                color: "secondary.main",
+                paddingLeft: 1,
+                fontSize: "1.2rem",
+              },
+            }}
           />
           <Button
             disabled={inputValue ? false : true}
             sx={{
+              alignSelf: "stretch",
               color: "green",
               width: "20%",
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
+              },
+              ":disabled": {
+                color: "primary.light",
               },
             }}
             type='submit'
@@ -109,7 +135,14 @@ const TodoList = () => {
 
       {/* todos container */}
       {todos.length > 0 && (
-        <Box ref={parent}>
+        <Box
+          sx={{
+            display: "grid",
+            gap: "1rem 0",
+            px: 1.7,
+          }}
+          ref={parent}
+        >
           {todos.map(({ content, id }) => {
             return (
               // single todo
@@ -120,6 +153,12 @@ const TodoList = () => {
                   justifyContent: "space-between",
                   p: 2,
                   boxShadow: 0,
+                  borderRadius: 0,
+                  bgcolor: "primary.main",
+                  color: "secondary.main",
+                  border: "3px solid transparent",
+                  borderBottom: "6px solid transparent",
+                  borderColor: "secondary.main",
                 }}
               >
                 {/* todo content */}
@@ -134,14 +173,22 @@ const TodoList = () => {
                     }}
                     className='p-2'
                   >
-                    <MdModeEditOutline className='todo-btn fill-black' />
+                    <MdModeEditOutline
+                      className={`todo-btn transition-colors hover:fill-blue-600 ${
+                        theme === "light" ? "fill-black " : "fill-white "
+                      }`}
+                    />
                   </button>
                   {/* delete single todo btn */}
                   <button
                     onClick={() => dispatch(removeTodo(id))}
                     className='p-2'
                   >
-                    <TiDelete className='todo-btn fill-black' />
+                    <TiDelete
+                      className={`todo-btn transition-colors hover:fill-red-600 ${
+                        theme === "light" ? "fill-black " : "fill-white "
+                      }`}
+                    />
                   </button>
                 </Box>
               </Card>
@@ -150,10 +197,22 @@ const TodoList = () => {
           {/* clear todos btn */}
           <Button
             color='warning'
-            sx={{ display: "block", mx: "auto", my: 2, p: 2, px: 4 }}
+            sx={{
+              display: "block",
+              mx: "auto",
+              my: 2,
+              p: 1.5,
+              px: 3.5,
+              border: "2px solid transparent",
+              borderColor: "secondary.main",
+              ":hover": {
+                bgcolor: "red",
+                color: "white",
+              },
+            }}
             onClick={() => dispatch(resetTodos())}
           >
-            Delete add Todos
+            Delete all Todos
           </Button>
         </Box>
       )}

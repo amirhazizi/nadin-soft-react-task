@@ -16,7 +16,6 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material" //mui
-import { bgcolor } from "@mui/system"
 
 const initalInput = { value: "", isEmpty: false }
 
@@ -53,7 +52,12 @@ const Profile = () => {
           Profile Updated!
         </Alert>
       </Snackbar>
-      <Typography variant='h1' fontSize='2rem' align='center'>
+      <Typography
+        sx={{ color: "secondary.main" }}
+        variant='h1'
+        fontSize='2rem'
+        align='center'
+      >
         User Profile
       </Typography>
       <Box
@@ -62,6 +66,7 @@ const Profile = () => {
           flexDirection: "column",
           justifyContent: "center",
           gap: ".75rem 0",
+          color: "secondary.main",
         }}
       >
         <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
@@ -76,8 +81,12 @@ const Profile = () => {
             }
             error={userNameInput.isEmpty}
             color={`${userNameInput.isEmpty ? "error" : "info"}`}
-            label='Name:'
-            id='user-input'
+            label='Name :'
+            sx={{
+              bgcolor: "white",
+              borderRadius: 1,
+              "& label": { color: "primary.light", bgcolor: "white", px: 0.2 },
+            }}
           />
           {userNameInput.isEmpty && (
             <FormHelperText sx={{ m: 0, mt: -1, color: "red" }}>
@@ -88,12 +97,13 @@ const Profile = () => {
         <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
           <InputLabel
             error={userThemeInput.isEmpty}
-            sx={{ bgcolor: "primary.main", px: 0.2 }}
+            sx={{ color: "primary.light", bgcolor: "white", px: 0.2 }}
             color='info'
           >
-            Theme:
+            Theme :
           </InputLabel>
           <Select
+            sx={{ bgcolor: "white" }}
             value={userThemeInput.value}
             onChange={(e) =>
               setUserThemeInput(() => {
@@ -119,11 +129,17 @@ const Profile = () => {
             <InputLabel
               color='info'
               error={userCityInput.isEmpty}
-              sx={{ bgcolor: "primary.main", px: 0.2 }}
+              sx={{
+                color: "primary.light",
+                bgcolor: "white",
+                px: 0.2,
+                borderRadius: ".3rem",
+              }}
             >
-              City:
+              City :
             </InputLabel>
             <Select
+              sx={{ bgcolor: "white" }}
               value={userCityInput.value}
               onChange={(e) =>
                 setUserCityInput(() => {
@@ -166,11 +182,14 @@ const Profile = () => {
           mx: "auto",
           p: 6,
           py: 1.5,
-          boxShadow: 5,
+          boxShadow: 7,
           fontSize: "1rem",
           ":hover": {
             bgcolor: "green",
             color: "primary.main",
+          },
+          ":disabled": {
+            color: "primary.light",
           },
         }}
         type='submit'
