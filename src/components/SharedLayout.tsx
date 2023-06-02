@@ -47,7 +47,7 @@ const SharedLayout = () => {
   // set localStorage State on redux
   useEffect(() => {
     dispatch(getFromLocalStorage(localStorageState))
-  }, [dispatch, localStorageState])
+  }, [])
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
