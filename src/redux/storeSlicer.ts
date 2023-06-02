@@ -16,7 +16,7 @@ export const initialState: InitialStateType = {
   theme: "light",
   city: "",
   todoList: {
-    todos: [{ content: "test", id: 5000 }],
+    todos: [],
     isEdit: false,
     editID: 0,
     editContent: "",
@@ -73,6 +73,9 @@ export const storeSlicer = createSlice({
       state.theme = action.payload.theme
       state.city = action.payload.city
     },
+    updateTheme: (state, action) => {
+      state.theme = action.payload
+    },
   },
 })
 export const {
@@ -85,5 +88,6 @@ export const {
   getFromLocalStorage,
   updateCity,
   updateProfile,
+  updateTheme,
 } = storeSlicer.actions
 export default storeSlicer.reducer

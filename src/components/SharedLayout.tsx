@@ -1,9 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
-import { Outlet, NavLink } from "react-router-dom" // react router
+import { Outlet } from "react-router-dom" // react router
 
 import { useSelector, useDispatch } from "react-redux" // state selector
 import { RootState } from "../redux/store" // state type (typescript required)
+
 import { getFromLocalStorage, initialState } from "../redux/storeSlicer"
 
 import UserModal from "./UserModal" // user modal
@@ -11,7 +12,11 @@ import UserModal from "./UserModal" // user modal
 import { Container } from "@mui/material" // mui container
 
 import { useLocalStorage } from "usehooks-ts" // localstorage custom hook
-import { createTheme, ThemeProvider } from "@mui/material" //theme MUI modules
+
+import { createTheme, ThemeProvider } from "@mui/material" // mui
+
+import Navbar from "./Navbar"
+import Sidebar from "./SIdebar"
 
 const lightTheme = createTheme({
   palette: {
@@ -46,6 +51,8 @@ const SharedLayout = () => {
     initialState
   ) // local Storage
 
+  const [isSidebar, setIsSidebar] = useState(false)
+
   //update localStoragess
   useEffect(() => {
     saveLocalStorageState({ user, city, theme, todoList })
@@ -60,7 +67,10 @@ const SharedLayout = () => {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <Container sx={{ bgcolor: "primary.main", minHeight: "100vh", pt: 7 }}>
         {!user && <UserModal />}
-        <section>
+
+        <Navbar setIsSidebar={setIsSidebar} />
+        <Sidebar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
+        <section className='mt-10'>
           <Outlet />
         </section>
       </Container>

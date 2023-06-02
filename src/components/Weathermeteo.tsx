@@ -97,7 +97,6 @@ const Weathermeteo = () => {
             error={isEmpty}
             sx={{
               width: "75%",
-
               "& label": { color: "secondary.main", px: 0.2 },
               borderBottom: "3px solid transparent",
               borderColor: "secondary.main",
