@@ -14,7 +14,7 @@ type InitialStateType = {
 export const initialState: InitialStateType = {
   user: "",
   theme: "light",
-  city: "tehran",
+  city: "",
   todoList: {
     todos: [{ content: "test", id: 5000 }],
     isEdit: false,
@@ -65,6 +65,9 @@ export const storeSlicer = createSlice({
       state.theme = action.payload.theme
       state.city = action.payload.city
     },
+    updateCity: (state, action) => {
+      state.city = action.payload
+    },
   },
 })
 export const {
@@ -75,5 +78,6 @@ export const {
   finishEditTodo,
   startEditTodo,
   getFromLocalStorage,
+  updateCity,
 } = storeSlicer.actions
 export default storeSlicer.reducer
