@@ -68,6 +68,11 @@ export const storeSlicer = createSlice({
     updateCity: (state, action) => {
       state.city = action.payload
     },
+    updateProfile: (state, action) => {
+      state.user = action.payload.user
+      state.theme = action.payload.theme
+      state.city = action.payload.city
+    },
   },
 })
 export const {
@@ -79,5 +84,6 @@ export const {
   startEditTodo,
   getFromLocalStorage,
   updateCity,
+  updateProfile,
 } = storeSlicer.actions
 export default storeSlicer.reducer
