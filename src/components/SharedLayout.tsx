@@ -52,7 +52,7 @@ const SharedLayout = () => {
             <Navbar setIsSidebar={setIsSidebar} />
             <Sidebar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
             <section>
-              <div className='pt-10 md:pt-16 md:flex md:gap-x-20 min-h-screen w-full'>
+              <div className=' pt-10 md:pt-16 md:flex md:gap-x-10 min-h-screen w-full'>
                 <FixedSideBar />
                 <Outlet />
               </div>

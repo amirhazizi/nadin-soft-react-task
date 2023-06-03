@@ -37,14 +37,16 @@ const TodoList = () => {
     (state: RootState) => state.storeReducer.todoList.editID
   ) //isEdir flag redux state
   const dispatch = useDispatch()
-  const [inputValue, setInputValue] = useState<string>() //textfield value
+  const [inputValue, setInputValue] = useState("") //textfield value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
   const [parent] = useAutoAnimate() //auto animate ref
   const handleSubmit = (e: React.FormEvent) => {
     //handle Submit f()
     e.preventDefault()
     if (!inputValue) return //if inputvalue empty return
-    if (!isEdit) dispatch(addNewTodo(inputValue)) //new todo if !editflag
+    if (!isEdit)
+      dispatch(addNewTodo({ content: inputValue, id: new Date().getTime() }))
+    //new todo if !editflag
     else dispatch(finishEditTodo(inputValue)) // edit target todo
     setInputValue("") // empty textfield
   }
@@ -164,6 +166,7 @@ const TodoList = () => {
               // single todo
               <Card
                 key={id}
+                datatype={`${id}`}
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -187,7 +190,7 @@ const TodoList = () => {
                       dispatch(startEditTodo({ id, content }))
                       setInputValue(content)
                     }}
-                    className='p-2'
+                    className='edit-btn p-2'
                   >
                     <MdModeEditOutline
                       className={`todo-btn transition-colors hover:fill-blue-600 ${
@@ -198,7 +201,7 @@ const TodoList = () => {
                   {/* delete single todo btn */}
                   <button
                     onClick={() => dispatch(removeTodo(id))}
-                    className='p-2'
+                    className='delete-btn p-2'
                   >
                     <TiDelete
                       className={`todo-btn transition-colors hover:fill-red-600 ${
@@ -212,6 +215,7 @@ const TodoList = () => {
           })}
           {/* clear todos btn */}
           <Button
+            id='reset-btn'
             color='warning'
             sx={{
               display: "block",

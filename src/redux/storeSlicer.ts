@@ -30,7 +30,10 @@ export const storeSlicer = createSlice({
       state.user = action.payload
     },
     addNewTodo: (state, action) => {
-      const newTodo = { content: action.payload, id: new Date().getTime() }
+      const newTodo = {
+        content: action.payload.content,
+        id: action.payload.id,
+      }
       state.todoList.todos = [...state.todoList.todos, newTodo]
     },
     removeTodo: (state, action) => {
