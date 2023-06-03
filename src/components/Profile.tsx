@@ -1,7 +1,10 @@
 import { useState } from "react" // react hooks
 import allCities from "../assests/iranCities.json"
-import { useDispatch } from "react-redux" // redux
+import { useDispatch, useSelector } from "react-redux" // redux
 import { updateProfile } from "../redux/storeSlicer" // redux updateCity dispatch
+import { RootState } from "../redux/store"
+
+import { useTranslation } from "react-i18next"
 
 import {
   FormControl,
@@ -22,11 +25,13 @@ import { lightTheme } from "../themes" // themes
 const initalInput = { value: "", isEmpty: false }
 
 const Profile = () => {
+  const { lan } = useSelector((state: RootState) => state.storeReducer)
   const [userNameInput, setUserNameInput] = useState(initalInput)
   const [userThemeInput, setUserThemeInput] = useState(initalInput)
   const [userCityInput, setUserCityInput] = useState(initalInput)
   const [isSubmited, setIsSubmited] = useState(false)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -72,14 +77,14 @@ const Profile = () => {
           fontSize='2rem'
           align='center'
         >
-          User Profile
+          {t("User Profile")}
         </Typography>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: ".75rem 0",
+            gap: "1.2rem 0",
             color: "secondary.main",
           }}
         >
@@ -96,7 +101,14 @@ const Profile = () => {
               }
               error={userNameInput.isEmpty}
               color={`${userNameInput.isEmpty ? "error" : "info"}`}
-              label='Name :'
+              label={t("Name :")}
+              InputProps={{
+                sx: {
+                  "& input": {
+                    textAlign: lan === "fa" ? "right" : "left",
+                  },
+                },
+              }}
               sx={{
                 bgcolor: "white",
                 borderRadius: 1,
@@ -104,25 +116,48 @@ const Profile = () => {
                   color: "primary.light",
                   bgcolor: "white",
                   px: 0.2,
+                  left: lan === "fa" ? "unset" : 0,
+                  right: lan === "fa" ? "2rem" : 0,
+                  fontWeight: lan === "fa" ? 700 : 500,
+                  fontSize: lan === "fa" ? "1.25rem" : "1rem",
                 },
               }}
             />
             {userNameInput.isEmpty && (
-              <FormHelperText sx={{ m: 0, mt: -1, color: "red" }}>
-                Please enter your name
+              <FormHelperText
+                sx={{
+                  m: 0,
+                  mt: -1,
+                  color: "red",
+                  textAlign: lan === "fa" ? "right" : "left",
+                }}
+              >
+                {t("Please enter your name")}
               </FormHelperText>
             )}
           </FormControl>
           <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
             <InputLabel
               error={userThemeInput.isEmpty}
-              sx={{ color: "primary.light", bgcolor: "white", px: 0.2 }}
+              sx={{
+                color: "primary.light",
+                bgcolor: "white",
+                px: 0.2,
+                width: lan === "fa" ? "1.7rem" : "4rem",
+                left: lan === "fa" ? "unset" : 0,
+                right: lan === "fa" ? "3rem" : 0,
+                fontWeight: lan === "fa" ? 700 : 500,
+                fontSize: lan === "fa" ? "1.1rem" : "1rem",
+              }}
               color='info'
             >
-              Theme :
+              {t("Theme :")}
             </InputLabel>
             <Select
-              sx={{ bgcolor: "white" }}
+              sx={{
+                bgcolor: "white",
+                textAlign: lan === "fa" ? "right" : "left",
+              }}
               value={userThemeInput.value}
               onChange={(e) =>
                 setUserThemeInput(() => {
@@ -135,56 +170,111 @@ const Profile = () => {
               color={`${userThemeInput.isEmpty ? "error" : "info"}`}
               error={userThemeInput.isEmpty}
             >
-              <MenuItem value=''>none</MenuItem>
-              <MenuItem value='light'>light</MenuItem>
-              <MenuItem value='dark'>dark</MenuItem>
+              <MenuItem
+                sx={{
+                  justifyContent: lan === "fa" ? "flex-end" : "flex-start",
+                }}
+                value=''
+              >
+                {t("none")}
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  justifyContent: lan === "fa" ? "flex-end" : "flex-start",
+                }}
+                value='light'
+              >
+                {t("light")}
+              </MenuItem>
+              <MenuItem
+                sx={{
+                  justifyContent: lan === "fa" ? "flex-end" : "flex-start",
+                }}
+                value='dark'
+              >
+                {t("dark")}
+              </MenuItem>
             </Select>
             {userThemeInput.isEmpty && (
-              <FormHelperText sx={{ m: 0, mt: -1, color: "red" }}>
-                Please choose your theme
-              </FormHelperText>
-            )}
-            <FormControl>
-              <InputLabel
-                color='info'
-                error={userCityInput.isEmpty}
+              <FormHelperText
                 sx={{
-                  color: "primary.light",
-                  bgcolor: "white",
-                  px: 0.2,
+                  m: 0,
+                  mt: -1,
+                  color: "red",
+                  textAlign: lan === "fa" ? "right" : "left",
                 }}
               >
-                City :
-              </InputLabel>
-              <Select
-                sx={{ bgcolor: "white" }}
-                value={userCityInput.value}
-                onChange={(e) =>
-                  setUserCityInput(() => {
-                    const value = e.target.value
-                    if (value) return { value, isEmpty: false }
-                    return { value, isEmpty: true }
-                  })
-                }
-                id='city-select'
-                color={`${userCityInput.isEmpty ? "error" : "info"}`}
-                error={userCityInput.isEmpty}
+                {t("Please choose your theme")}
+              </FormHelperText>
+            )}
+          </FormControl>
+          <FormControl>
+            <InputLabel
+              color='info'
+              error={userCityInput.isEmpty}
+              sx={{
+                color: "primary.light",
+                bgcolor: "white",
+                px: 0.2,
+                left: lan === "fa" ? "unset" : 0,
+                right: lan === "fa" ? "3rem" : 0,
+                fontSize: lan === "fa" ? "1.1rem" : "1rem",
+                width: lan === "fa" ? "2.6rem" : "2.6rem",
+              }}
+            >
+              {t("City :")}
+            </InputLabel>
+            <Select
+              sx={{
+                bgcolor: "white",
+                textAlign: lan === "fa" ? "right" : "left",
+              }}
+              value={userCityInput.value}
+              onChange={(e) =>
+                setUserCityInput(() => {
+                  const value = e.target.value
+                  if (value) return { value, isEmpty: false }
+                  return { value, isEmpty: true }
+                })
+              }
+              id='city-select'
+              color={`${userCityInput.isEmpty ? "error" : "info"}`}
+              error={userCityInput.isEmpty}
+            >
+              <MenuItem
+                sx={{
+                  justifyContent: lan === "fa" ? "flex-end" : "flex-start",
+                }}
+                value=''
               >
-                <MenuItem value=''>none</MenuItem>
-                {allCities.cities.map((city, index) => {
-                  return (
-                    <MenuItem key={index} value={city}>
-                      {city}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-              {userCityInput.isEmpty && (
-                <FormHelperText sx={{ m: 0, mt: 0.5, color: "red" }}>
-                  Please choose your city
-                </FormHelperText>
-              )}
-            </FormControl>
+                {t("none")}
+              </MenuItem>
+              {allCities.cities.map((city, index) => {
+                return (
+                  <MenuItem
+                    sx={{
+                      justifyContent: lan === "fa" ? "flex-end" : "flex-start",
+                    }}
+                    key={index}
+                    value={city}
+                  >
+                    {t(city)}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+            {userCityInput.isEmpty && (
+              <FormHelperText
+                sx={{
+                  m: 0,
+                  mt: 0.5,
+                  color: "red",
+                  textAlign: lan === "fa" ? "right" : "left",
+                }}
+              >
+                {t("Please choose your city")}
+              </FormHelperText>
+            )}
           </FormControl>
         </Box>
         <Button
@@ -201,7 +291,7 @@ const Profile = () => {
             p: 6,
             py: 1.5,
             boxShadow: 7,
-            fontSize: "1rem",
+            fontSize: lan === "fa" ? "1.3rem" : "1rem",
             ":hover": {
               bgcolor: "green",
               color: "primary.main",
@@ -212,7 +302,7 @@ const Profile = () => {
           }}
           type='submit'
         >
-          Submit
+          {t("submit")}
         </Button>
       </form>
     </Box>

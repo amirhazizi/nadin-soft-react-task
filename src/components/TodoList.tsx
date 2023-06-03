@@ -28,14 +28,18 @@ import {
 
 import { useAutoAnimate } from "@formkit/auto-animate/react" //autoAnimate
 
+import { useTranslation } from "react-i18next"
+
 const TodoList = () => {
   const todos = useSelector(
     (state: RootState) => state.storeReducer.todoList.todos
   ) //todos redux state
-  const theme = useSelector((state: RootState) => state.storeReducer.theme) //theme redux state
+  const { theme, lan } = useSelector((state: RootState) => state.storeReducer) //theme redux state
   const isEdit = useSelector(
     (state: RootState) => state.storeReducer.todoList.editID
   ) //isEdir flag redux state
+
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState("") //textfield value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
@@ -86,14 +90,14 @@ const TodoList = () => {
           },
         }}
       >
-        TODO List
+        {t("TODO List")}
       </Typography>
       {/* from */}
       <form className='p-4 ' onSubmit={handleSubmit}>
         <FormControl
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: lan === "en" ? "row" : "row-reverse",
             gap: "0 1rem",
             alignItems: "end",
             borderBottom: `${todos.length > 0 && "1px solid transparent"}`,
@@ -102,14 +106,27 @@ const TodoList = () => {
           }}
         >
           <TextField
+            InputProps={{
+              sx: {
+                "& input": {
+                  textAlign: lan === "fa" ? "right" : "left",
+                },
+              },
+            }}
             sx={{
               width: "75%",
-              "& label": { color: "secondary.main", px: 0.2 },
               borderBottom: "3px solid transparent",
               borderColor: "secondary.main",
+              "& label": {
+                color: "secondary.main",
+                px: 0.2,
+                fontWeight: 600,
+                left: lan === "fa" ? "unset" : 0,
+                right: lan === "fa" ? ".5rem" : 0,
+              },
             }}
             variant='standard'
-            label='new todos'
+            label={t("new todo")}
             error={isEmpty}
             color='success'
             value={inputValue}
@@ -132,9 +149,10 @@ const TodoList = () => {
           <Button
             disabled={inputValue ? false : true}
             sx={{
-              alignSelf: "stretch",
+              alignSelf: "end",
               color: "green",
-              width: "20%",
+              width: "25%",
+              fontSize: lan === "fa" ? "1.2rem" : ".9rem",
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
@@ -145,7 +163,7 @@ const TodoList = () => {
             }}
             type='submit'
           >
-            Submit
+            {t("submit")}
           </Button>
         </FormControl>
       </form>
@@ -169,6 +187,7 @@ const TodoList = () => {
                 datatype={`${id}`}
                 sx={{
                   display: "flex",
+                  flexDirection: lan === "en" ? "row" : "row-reverse",
                   justifyContent: "space-between",
                   p: 2,
                   boxShadow: 0,
@@ -183,7 +202,13 @@ const TodoList = () => {
                 {/* todo content */}
                 <Typography sx={{ fontSize: "1.5rem" }}>{content}</Typography>
                 {/* todos btn container */}
-                <Box sx={{ display: "flex", gap: "0 .5rem" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "0 .5rem",
+                    flexDirection: lan === "en" ? "row" : "row-reverse",
+                  }}
+                >
                   {/* start edit single todo btn  */}
                   <button
                     onClick={() => {
@@ -221,8 +246,9 @@ const TodoList = () => {
               display: "block",
               mx: "auto",
               my: 2,
-              p: 1.5,
+              p: lan === "fa" ? 1.1 : 1.5,
               px: 3.5,
+              fontSize: lan === "fa" ? "1.2rem" : ".9rem",
               border: "2px solid transparent",
               borderColor: "secondary.main",
               ":hover": {
@@ -232,7 +258,7 @@ const TodoList = () => {
             }}
             onClick={() => dispatch(resetTodos())}
           >
-            Delete all Todos
+            {t("Delete all Todos")}
           </Button>
         </Box>
       )}

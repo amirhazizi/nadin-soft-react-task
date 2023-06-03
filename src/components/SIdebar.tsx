@@ -1,12 +1,10 @@
 import { Drawer, List, IconButton, Divider, Box } from "@mui/material" // mui
 import { NavLink } from "react-router-dom" // react router
 import { GrFormClose } from "react-icons/gr"
-const navLinks = [
-  { text: "Dashboard", link: "/dashboard" },
-  { text: "Todos", link: "/todolist" },
-  { text: "Weather", link: "/weather" },
-  { text: "Profile", link: "/profile" },
-]
+import { useTranslation } from "react-i18next"
+
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 type SidebarParams = {
   setIsSidebar: (a: boolean) => void
@@ -14,6 +12,14 @@ type SidebarParams = {
 }
 
 const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
+  const { lan } = useSelector((state: RootState) => state.storeReducer)
+  const { t } = useTranslation()
+  const navLinks = [
+    { text: t("Dashboard"), link: "/dashboard" },
+    { text: t("Todos"), link: "/todolist" },
+    { text: t("Weather"), link: "/weather" },
+    { text: t("Profile"), link: "/profile" },
+  ]
   return (
     <Drawer
       sx={{
@@ -22,17 +28,18 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
         "& .MuiDrawer-paper": {
           width: "45%",
           boxSizing: "border-box",
+          // bgcolor: "secondary.main",
         },
       }}
       variant='persistent'
-      anchor='left'
+      anchor={lan === "en" ? "left" : "right"}
       open={isSidebar}
     >
       <Box
         sx={{
           p: 1,
           width: "fit-content",
-          ml: "auto",
+          margin: lan === "fa" ? "0 auto 0 0" : "0 0 0 auto",
         }}
       >
         <IconButton onClick={() => setIsSidebar(false)}>
@@ -40,7 +47,14 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
         </IconButton>
       </Box>
       <Divider />
-      <List sx={{ display: "grid", gap: "1rem", p: 3 }}>
+      <List
+        sx={{
+          display: "grid",
+          gap: "1rem",
+          p: 3,
+          textAlign: lan === "fa" ? "right" : "left",
+        }}
+      >
         {navLinks.map((singleNav, index) => (
           <NavLink
             onClick={() => setIsSidebar(false)}
@@ -50,11 +64,11 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
               isPending
                 ? "text-red-700"
                 : isActive
-                ? "text-blue-700 text-lg font-medium relative after:w-24 after:h-px after:absolute after:-bottom-1 after:left-0 after:bg-blue-700"
+                ? "text-blue-700 text-lg font-medium "
                 : "text-lg font-medium "
             }
           >
-            {singleNav.text}
+            {t(singleNav.text)}
           </NavLink>
         ))}
       </List>

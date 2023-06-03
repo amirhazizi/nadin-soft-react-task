@@ -1,20 +1,27 @@
-import { Drawer, List, Box } from "@mui/material" // mui
+import { List, Box } from "@mui/material" // mui
 import { NavLink } from "react-router-dom" // react router
 
 import { lightTheme } from "../themes" // themes
+import { useSelector } from "react-redux"
 
-const navLinks = [
-  { text: "Dashboard", link: "/dashboard" },
-  { text: "Todos", link: "/todolist" },
-  { text: "Weather", link: "/weather" },
-  { text: "Profile", link: "/profile" },
-]
+import { useTranslation } from "react-i18next"
+import { RootState } from "../redux/store"
+
 const FixedSideBar = () => {
+  const { t } = useTranslation()
+  const { lan } = useSelector((state: RootState) => state.storeReducer)
+  const navLinks = [
+    { text: t("Dashboard"), link: "/dashboard" },
+    { text: t("Todos"), link: "/todolist" },
+    { text: t("Weather"), link: "/weather" },
+    { text: t("Profile"), link: "/profile" },
+  ]
   return (
     <Box
       sx={{
-        width: "30%",
-        borderRight: "2px solid transparent",
+        width: "32%",
+        borderRight: lan === "en" ? "2px solid transparent" : "none",
+        borderLeft: lan === "fa" ? "2px solid transparent" : "none",
         bgcolor: "primary.main",
         alignSelf: "stretch",
         color: "secondary.main",
@@ -30,6 +37,7 @@ const FixedSideBar = () => {
           gap: "1.5rem 0",
           p: 5,
           pt: 14,
+          textAlign: lan === "fa" ? "right" : "left",
         }}
       >
         {navLinks.map((singleNav, index) => (
@@ -40,7 +48,7 @@ const FixedSideBar = () => {
               isPending
                 ? "text-red-700"
                 : isActive
-                ? "text-blue-700 text-xl font-medium relative after:w-24 after:h-px after:absolute after:-bottom-1 after:left-0 after:bg-blue-700"
+                ? "text-blue-700 text-xl font-medium "
                 : "text-xl font-medium "
             }
           >

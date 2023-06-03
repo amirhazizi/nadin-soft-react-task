@@ -4,22 +4,14 @@ import { useSelector, useDispatch } from "react-redux" // redux
 import { RootState } from "../redux/store" //rootState type
 import { updateweather } from "../redux/storeSlicer" // redux updateCity dispatch
 
-import {
-  FormControl,
-  TextField,
-  Button,
-  Box,
-  Card,
-  Typography,
-} from "@mui/material" //mui
+import { FormControl, TextField, Button, Box } from "@mui/material" //mui
 
 import axios from "axios" //axios
 
-import weatherCodeChecker from "../weatherCodeChecker" //weather code to weather type f()
-
-import loadingBar from "../assests/Eclipse-loading.svg?url" // svg animate loading bar
 import { lightTheme } from "../themes" // themes
+import WeatherCard from "./WeatherCard"
 
+import { useTranslation } from "react-i18next"
 const baseGetWeatherURL = "https://api.open-meteo.com/v1" //baseURL getWeather
 const baseGetLocationURL = "https://geocoding-api.open-meteo.com/v1/" //baseURL getlocation by city
 
@@ -34,19 +26,15 @@ const autoGetWeatherFetch = axios.create({
 
 const Weathermeteo = () => {
   const {
+    lan,
     weather: { city, code, temperature, uploadTime },
   } = useSelector((state: RootState) => state.storeReducer) //city state from redux
-  const intialCity = {
-    city: city || "loading...",
-    temp: temperature,
-    weather: weatherCodeChecker(code),
-  } // initial state for initial page render
-
   const dispatch = useDispatch() //dispatch
-  const [userCity, setUserCity] = useState(intialCity) //city weather info
+  // const [userCity, setUserCity] = useState(intialCity) //city weather info
   const [userInput, setUserInput] = useState("") // input value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
   const [isLoading, setIsLoading] = useState(false) // loadingBar toggle
+  const { t } = useTranslation()
 
   const fetchWeather = async (cityParam: string) => {
     setIsLoading(true) //show loading bar
@@ -71,12 +59,6 @@ const Weathermeteo = () => {
           uploadTime: new Date().getTime(),
         })
       ) // upload to redux and localstorage
-      setUserCity({
-        city: cityParam,
-        temp: temperature,
-        weather: weatherCodeChecker(weathercode),
-      }) // update weather card
-
       // update city weather details
       setIsLoading(false) // unshow loadingBar
     } catch (error) {
@@ -118,7 +100,7 @@ const Weathermeteo = () => {
         <FormControl
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: lan === "en" ? "row" : "row-reverse",
             justifyContent: "space-between",
             gap: "0 1.5rem",
           }}
@@ -127,11 +109,24 @@ const Weathermeteo = () => {
           <TextField
             value={userInput}
             error={isEmpty}
+            InputProps={{
+              sx: {
+                "& input": {
+                  textAlign: lan === "fa" ? "right" : "left",
+                },
+              },
+            }}
             sx={{
               width: "75%",
-              "& label": { color: "secondary.main", px: 0.2 },
               borderBottom: "3px solid transparent",
               borderColor: "secondary.main",
+              "& label": {
+                color: "secondary.main",
+                px: 0.2,
+                fontWeight: 600,
+                left: lan === "fa" ? "unset" : 0,
+                right: lan === "fa" ? ".5rem" : 0,
+              },
             }}
             onChange={(e) => {
               const value = e.target.value
@@ -142,7 +137,7 @@ const Weathermeteo = () => {
               })
             }}
             variant='standard'
-            label='Enter City'
+            label={t("Enter City")}
             color='success'
             inputProps={{
               sx: {
@@ -158,9 +153,10 @@ const Weathermeteo = () => {
             disabled={userInput ? false : true}
             sx={{
               color: "green",
-              alignSelf: "stretch",
+              alignSelf: "end",
               p: 3,
               py: 1,
+              fontSize: lan === "fa" ? "1.2rem" : ".9rem",
               ":hover": {
                 bgcolor: "green",
                 color: "primary.main",
@@ -171,7 +167,7 @@ const Weathermeteo = () => {
             }}
             type='submit'
           >
-            Submit
+            {t("submit")}
           </Button>
         </FormControl>
       </form>
@@ -181,70 +177,12 @@ const Weathermeteo = () => {
       <Box sx={{ display: "grid", placeContent: "center" }}>
         {/* weather card */}
         {city && (
-          <Card
-            sx={{
-              p: 3,
-              textAlign: "center",
-              display: "grid",
-              gap: "2rem 0",
-              border: "2px solid transparent",
-              borderRadius: "1rem",
-              borderColor: "secondary.main",
-              color: "secondary.main",
-              bgcolor: "primary.main",
-              boxShadow: 0,
-              minWidth: "17.5rem",
-              minHeight: "19rem",
-              position: "relative",
-            }}
-          >
-            {/* loadingBar container */}
-            <div
-              className={`absolute bg-slate-500 bg-opacity-25 grid place-content-center transition-opacity inset-0 ${
-                isLoading ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              {/* loadingBar svg */}
-              <img
-                className='scale-75'
-                src={loadingBar}
-                alt='animated loading bar'
-              />
-            </div>
-            {/* city name */}
-            <Typography
-              variant='h1'
-              sx={{
-                fontSize: "2.5rem",
-                fontWeight: 700,
-                textTransform: "capitalize",
-              }}
-            >
-              {userCity.city}
-            </Typography>
-            {/* city temperature */}
-            <Typography
-              variant='h2'
-              sx={{
-                fontSize: "2.2rem",
-                fontWeight: 500,
-                textTransform: "capitalize",
-              }}
-            >
-              {userCity.temp} °C
-            </Typography>
-            {/* city weather type */}
-            <Typography
-              variant='h3'
-              sx={{
-                fontSize: "2.2rem",
-                fontWeight: 500,
-                textTransform: "capitalize",
-              }}
-            >
-              {userCity.weather}
-            </Typography>
-          </Card>
+          <WeatherCard
+            isLoading={isLoading}
+            city={city}
+            temperature={temperature}
+            code={code}
+          />
         )}
         {/* end of weather card */}
       </Box>

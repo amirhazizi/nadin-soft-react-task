@@ -6,26 +6,25 @@ import { useSelector } from "react-redux" //redux state selector
 import { RootState } from "../redux/store" // root State type
 
 import { lightTheme } from "../themes" // themes
+import { useTranslation, initReactI18next } from "react-i18next"
 
-// greeting changer based on time hour
 const greetingChanger = (time: Date) => {
   const hour = time.getHours()
   if (hour < 12) return "Good morning"
   if (hour < 16) return "Good afternoon"
   return "Good evening"
-}
+} // greeting changer based on time hour
 
 const Dashboard = () => {
+  const { t } = useTranslation()
   const [time, setTime] = useState(new Date()) // time state
   const [greeting, setGreeting] = useState(greetingChanger(time)) // greeting state based on time
-  const user = useSelector((state: RootState) => state.storeReducer.user) // user name
-
+  const { user, lan } = useSelector((state: RootState) => state.storeReducer) // user name
   // run after intial render or user re-render
   useEffect(() => {
     // invertal loop run after 1s
     const loop = setInterval(() => {
       const newTime = new Date() // get current time
-
       setTime(() => {
         // change time state
         return newTime
@@ -37,6 +36,7 @@ const Dashboard = () => {
     }, 1000)
     return () => clearInterval(loop) //cleanup useEffect function
   }, [])
+
   return (
     <Box
       sx={{
@@ -73,7 +73,7 @@ const Dashboard = () => {
         variant='h2'
         id='greeting'
       >
-        {greeting}, {user}
+        {lan === "en" ? `${t(greeting)}, ${user}` : `${user}, ${t(greeting)}`}
       </Typography>
     </Box>
   )

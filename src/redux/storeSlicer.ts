@@ -16,6 +16,7 @@ type InitialStateType = {
     temperature: number
     uploadTime: number
   }
+  lan: "en" | "fa"
 }
 export const initialState: InitialStateType = {
   user: "",
@@ -33,6 +34,7 @@ export const initialState: InitialStateType = {
     temperature: 0,
     uploadTime: 0,
   },
+  lan: "en",
 }
 export const storeSlicer = createSlice({
   name: "storeReducer",
@@ -80,6 +82,7 @@ export const storeSlicer = createSlice({
       state.theme = action.payload.theme
       state.city = action.payload.city
       state.weather = action.payload.weather
+      state.lan = action.payload.lan
     },
     updateweather: (state, action) => {
       state.weather.city = action.payload.city
@@ -95,6 +98,11 @@ export const storeSlicer = createSlice({
     updateTheme: (state, action) => {
       state.theme = action.payload
     },
+    updateLanguage: (state) => {
+      const prevLan = state.lan
+      if (prevLan === "en") state.lan = "fa"
+      else state.lan = "en"
+    },
   },
 })
 export const {
@@ -108,5 +116,6 @@ export const {
   updateweather,
   updateProfile,
   updateTheme,
+  updateLanguage,
 } = storeSlicer.actions
 export default storeSlicer.reducer
