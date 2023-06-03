@@ -2,7 +2,7 @@ import { useState, useEffect } from "react" // react hooks
 
 import { useSelector, useDispatch } from "react-redux" // redux
 import { RootState } from "../redux/store" //rootState type
-import { updateCity } from "../redux/storeSlicer" // redux updateCity dispatch
+import { updateweather } from "../redux/storeSlicer" // redux updateCity dispatch
 
 import {
   FormControl,
@@ -33,12 +33,15 @@ const autoGetWeatherFetch = axios.create({
 }) // custom axios for weather req
 
 const Weathermeteo = () => {
-  const { city } = useSelector((state: RootState) => state.storeReducer) //city state from redux
+  const {
+    weather: { city, code, temperature, uploadTime },
+  } = useSelector((state: RootState) => state.storeReducer) //city state from redux
   const intialCity = {
     city: city || "loading...",
-    temp: -1,
-    weather: "loading...",
+    temp: temperature,
+    weather: weatherCodeChecker(code),
   } // initial state for initial page render
+
   const dispatch = useDispatch() //dispatch
   const [userCity, setUserCity] = useState(intialCity) //city weather info
   const [userInput, setUserInput] = useState("") // input value
@@ -60,11 +63,21 @@ const Weathermeteo = () => {
         `/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
       ) // get weather details from city location
 
+      dispatch(
+        updateweather({
+          city: cityParam,
+          temperature,
+          code: weathercode,
+          uploadTime: new Date().getTime(),
+        })
+      ) // upload to redux and localstorage
       setUserCity({
         city: cityParam,
         temp: temperature,
         weather: weatherCodeChecker(weathercode),
-      }) // update city weather details
+      }) // update weather card
+
+      // update city weather details
       setIsLoading(false) // unshow loadingBar
     } catch (error) {
       console.log(error) //show error if request failed
@@ -73,13 +86,15 @@ const Weathermeteo = () => {
   } // fetch weather from city name
 
   useEffect(() => {
-    city && fetchWeather(city)
+    if (uploadTime + 3600000 <= new Date().getTime()) {
+      city && fetchWeather(city)
+    } // every hour city status updates
   }, [city]) // run scope if city state changes
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!userInput) return //return if input was empty
-    dispatch(updateCity(userInput)) //update user city in redux
+    fetchWeather(userInput) //update user city in redux
     setUserInput("") // clear input value
   } // submit form handle f()
   return (

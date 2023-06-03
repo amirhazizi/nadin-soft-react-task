@@ -21,7 +21,7 @@ import Sidebar from "./SIdebar"
 import FixedSideBar from "./FIxedSidebar"
 
 const SharedLayout = () => {
-  const { user, city, theme, todoList } = useSelector(
+  const { user, city, theme, todoList, weather } = useSelector(
     (state: RootState) => state.storeReducer
   ) // user state
   const dispatch = useDispatch() //redux distpatch
@@ -34,8 +34,8 @@ const SharedLayout = () => {
 
   //update localStoragess
   useEffect(() => {
-    saveLocalStorageState({ user, city, theme, todoList })
-  }, [user, city, theme, todoList, saveLocalStorageState])
+    saveLocalStorageState({ user, city, theme, todoList, weather })
+  }, [user, city, theme, todoList, weather, saveLocalStorageState])
 
   // set localStorage State on redux
   useEffect(() => {

@@ -10,6 +10,12 @@ type InitialStateType = {
     editID: number
     editContent: string
   }
+  weather: {
+    city: string
+    code: number
+    temperature: number
+    uploadTime: number
+  }
 }
 export const initialState: InitialStateType = {
   user: "",
@@ -20,6 +26,12 @@ export const initialState: InitialStateType = {
     isEdit: false,
     editID: 0,
     editContent: "",
+  },
+  weather: {
+    city: "",
+    code: 0,
+    temperature: 0,
+    uploadTime: 0,
   },
 }
 export const storeSlicer = createSlice({
@@ -67,9 +79,13 @@ export const storeSlicer = createSlice({
       state.todoList = action.payload.todoList
       state.theme = action.payload.theme
       state.city = action.payload.city
+      state.weather = action.payload.weather
     },
-    updateCity: (state, action) => {
-      state.city = action.payload
+    updateweather: (state, action) => {
+      state.weather.city = action.payload.city
+      state.weather.code = action.payload.code
+      state.weather.temperature = action.payload.temperature
+      state.weather.uploadTime = action.payload.uploadTime
     },
     updateProfile: (state, action) => {
       state.user = action.payload.user
@@ -89,7 +105,7 @@ export const {
   finishEditTodo,
   startEditTodo,
   getFromLocalStorage,
-  updateCity,
+  updateweather,
   updateProfile,
   updateTheme,
 } = storeSlicer.actions
