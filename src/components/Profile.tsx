@@ -52,6 +52,8 @@ const Profile = () => {
       sx={{
         maxWidth: "30rem",
         mx: "auto",
+        pt: "4rem",
+        alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "35rem",
           minWidth: "23rem",

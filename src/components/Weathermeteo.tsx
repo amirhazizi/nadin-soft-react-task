@@ -85,6 +85,8 @@ const Weathermeteo = () => {
         gap: "4rem 0",
         maxWidth: "25rem",
         mx: "auto",
+        pt: "4rem",
+        alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "35rem",
           minWidth: "30rem",

@@ -1,4 +1,4 @@
-import { Drawer, List } from "@mui/material" // mui
+import { Drawer, List, Box } from "@mui/material" // mui
 import { NavLink } from "react-router-dom" // react router
 
 import { lightTheme } from "../themes" // themes
@@ -11,30 +11,24 @@ const navLinks = [
 ]
 const FixedSideBar = () => {
   return (
-    <Drawer
+    <Box
       sx={{
         width: "20%",
-        zIndex: 1,
-        "& .MuiDrawer-paper": {},
+        borderRight: "2px solid transparent",
+        bgcolor: "primary.main",
+        alignSelf: "stretch",
+        color: "secondary.main",
+        borderColor: "secondary.main",
         [lightTheme.breakpoints.down("md")]: {
           display: "none",
         },
         [lightTheme.breakpoints.up("md")]: {
-          "& .MuiDrawer-paper": {
-            width: "30%",
-            bgcolor: "primary.main",
-            color: "secondary.main",
-            borderColor: "secondary.main",
-          },
+          width: "30%",
         },
         [lightTheme.breakpoints.up("lg")]: {
-          "& .MuiDrawer-paper": {
-            width: "25%",
-          },
+          width: "35%",
         },
       }}
-      variant='permanent'
-      anchor='left'
     >
       <List
         sx={{
@@ -60,7 +54,7 @@ const FixedSideBar = () => {
           </NavLink>
         ))}
       </List>
-    </Drawer>
+    </Box>
   )
 }
 export default FixedSideBar

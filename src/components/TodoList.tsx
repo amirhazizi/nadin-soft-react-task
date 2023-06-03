@@ -58,9 +58,11 @@ const TodoList = () => {
         color: "secondary.main",
         maxWidth: "25rem",
         mx: "auto",
+        mt: "4rem",
+        alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "32rem",
-          minWidth: "30rem",
+          minWidth: "27rem",
         },
       }}
     >

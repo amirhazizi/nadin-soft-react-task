@@ -46,6 +46,8 @@ const Dashboard = () => {
         color: "secondary.main",
         maxWidth: "25rem",
         mx: "auto",
+        pt: "4rem",
+        alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "35rem",
         },

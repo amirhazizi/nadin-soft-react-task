@@ -13,14 +13,7 @@ import { Container } from "@mui/material" // mui container
 
 import { useLocalStorage } from "usehooks-ts" // localstorage custom hook
 
-import {
-  ThemeProvider,
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material" // mui
+import { ThemeProvider, Box } from "@mui/material" // mui
 import { lightTheme, darkTheme } from "../themes" // themes
 
 import Navbar from "./Navbar"
@@ -51,18 +44,20 @@ const SharedLayout = () => {
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <Box sx={{ bgcolor: "primary.main", minHeight: "100vh" }}>
-        <Container sx={{ pt: 7 }}>
-          {!user && <UserModal />}
+      <Box sx={{ bgcolor: "primary.main" }}>
+        <Container>
+          <Box>
+            {!user && <UserModal />}
 
-          <Navbar setIsSidebar={setIsSidebar} />
-          <Sidebar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
-          <section>
-            <div className='mt-10 md:mt-16 md:flex md:gap-x-20'>
-              <FixedSideBar />
-              <Outlet />
-            </div>
-          </section>
+            <Navbar setIsSidebar={setIsSidebar} />
+            <Sidebar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
+            <section>
+              <div className='pt-10 md:pt-16 md:flex md:gap-x-20 min-h-screen'>
+                <FixedSideBar />
+                <Outlet />
+              </div>
+            </section>
+          </Box>
         </Container>
       </Box>
     </ThemeProvider>
