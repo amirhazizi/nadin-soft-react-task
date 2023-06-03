@@ -13,7 +13,7 @@ const FixedSideBar = () => {
   return (
     <Box
       sx={{
-        width: "20%",
+        width: "30%",
         borderRight: "2px solid transparent",
         bgcolor: "primary.main",
         alignSelf: "stretch",
@@ -21,12 +21,6 @@ const FixedSideBar = () => {
         borderColor: "secondary.main",
         [lightTheme.breakpoints.down("md")]: {
           display: "none",
-        },
-        [lightTheme.breakpoints.up("md")]: {
-          width: "30%",
-        },
-        [lightTheme.breakpoints.up("lg")]: {
-          width: "35%",
         },
       }}
     >

@@ -56,7 +56,7 @@ const Profile = () => {
         alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "35rem",
-          minWidth: "23rem",
+          minWidth: "20rem",
         },
       }}
     >

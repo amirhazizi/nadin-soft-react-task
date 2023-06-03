@@ -40,19 +40,19 @@ const SharedLayout = () => {
   // set localStorage State on redux
   useEffect(() => {
     dispatch(getFromLocalStorage(localStorageState))
-  }, [])
+  }, [dispatch, getFromLocalStorage])
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <Box sx={{ bgcolor: "primary.main" }}>
-        <Container>
+        <Container sx={{ mx: "auto" }}>
           <Box>
             {!user && <UserModal />}
 
             <Navbar setIsSidebar={setIsSidebar} />
             <Sidebar isSidebar={isSidebar} setIsSidebar={setIsSidebar} />
             <section>
-              <div className='pt-10 md:pt-16 md:flex md:gap-x-20 min-h-screen'>
+              <div className='pt-10 md:pt-16 md:flex md:gap-x-20 min-h-screen w-full'>
                 <FixedSideBar />
                 <Outlet />
               </div>

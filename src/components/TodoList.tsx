@@ -62,7 +62,10 @@ const TodoList = () => {
         alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "32rem",
-          minWidth: "27rem",
+          minWidth: "20rem",
+        },
+        [lightTheme.breakpoints.up("lg")]: {
+          minWidth: "28rem",
         },
       }}
     >
@@ -77,7 +80,7 @@ const TodoList = () => {
           borderBottom: "2px solid transparent",
           borderColor: "secondary.main",
           [lightTheme.breakpoints.up("md")]: {
-            fontSize: "3rem",
+            fontSize: "2.5rem",
           },
         }}
       >

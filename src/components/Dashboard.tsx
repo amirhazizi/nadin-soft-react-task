@@ -57,10 +57,11 @@ const Dashboard = () => {
         sx={{
           fontSize: "6rem",
           [lightTheme.breakpoints.up("md")]: {
-            fontSize: "8rem",
+            fontSize: "7rem",
           },
         }}
         variant='h1'
+        id='clock'
       >
         {time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:
         {time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}
@@ -68,11 +69,9 @@ const Dashboard = () => {
       <Typography
         sx={{
           fontSize: "2rem",
-          [lightTheme.breakpoints.up("md")]: {
-            fontSize: "2.5rem",
-          },
         }}
         variant='h2'
+        id='greeting'
       >
         {greeting}, {user}
       </Typography>

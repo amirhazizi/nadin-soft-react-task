@@ -32,15 +32,18 @@ const autoGetWeatherFetch = axios.create({
   headers: { Accept: "application/json" },
 }) // custom axios for weather req
 
-const intialCity = { city: "loading...", temp: -1, weather: "loading.." } // initial state for initial page render
-
 const Weathermeteo = () => {
-  const city = useSelector((state: RootState) => state.storeReducer.city) //city state from redux
+  const { city } = useSelector((state: RootState) => state.storeReducer) //city state from redux
+  const intialCity = {
+    city: city || "loading...",
+    temp: -1,
+    weather: "loading...",
+  } // initial state for initial page render
   const dispatch = useDispatch() //dispatch
   const [userCity, setUserCity] = useState(intialCity) //city weather info
   const [userInput, setUserInput] = useState("") // input value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
-  const [isLoading, setIsLoading] = useState(true) // loadingBar toggle
+  const [isLoading, setIsLoading] = useState(false) // loadingBar toggle
 
   const fetchWeather = async (cityParam: string) => {
     setIsLoading(true) //show loading bar
@@ -68,6 +71,7 @@ const Weathermeteo = () => {
       setIsLoading(false) // unshow loadingBar
     }
   } // fetch weather from city name
+
   useEffect(() => {
     city && fetchWeather(city)
   }, [city]) // run scope if city state changes
@@ -89,7 +93,7 @@ const Weathermeteo = () => {
         alignSelf: "start",
         [lightTheme.breakpoints.up("md")]: {
           maxWidth: "35rem",
-          minWidth: "30rem",
+          minWidth: "20rem",
         },
       }}
     >
@@ -161,70 +165,72 @@ const Weathermeteo = () => {
       {/* weather container */}
       <Box sx={{ display: "grid", placeContent: "center" }}>
         {/* weather card */}
-        <Card
-          sx={{
-            p: 3,
-            textAlign: "center",
-            display: "grid",
-            gap: "2rem 0",
-            border: "2px solid transparent",
-            borderRadius: "1rem",
-            borderColor: "secondary.main",
-            color: "secondary.main",
-            bgcolor: "primary.main",
-            boxShadow: 0,
-            minWidth: "17.5rem",
-            minHeight: "19rem",
-            position: "relative",
-          }}
-        >
-          {/* loadingBar container */}
-          <div
-            className={`absolute bg-slate-500 bg-opacity-25 grid place-content-center transition-opacity inset-0 ${
-              isLoading ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {/* loadingBar svg */}
-            <img
-              className='scale-75'
-              src={loadingBar}
-              alt='animated loading bar'
-            />
-          </div>
-          {/* city name */}
-          <Typography
-            variant='h1'
+        {city && (
+          <Card
             sx={{
-              fontSize: "2.5rem",
-              fontWeight: 700,
-              textTransform: "capitalize",
+              p: 3,
+              textAlign: "center",
+              display: "grid",
+              gap: "2rem 0",
+              border: "2px solid transparent",
+              borderRadius: "1rem",
+              borderColor: "secondary.main",
+              color: "secondary.main",
+              bgcolor: "primary.main",
+              boxShadow: 0,
+              minWidth: "17.5rem",
+              minHeight: "19rem",
+              position: "relative",
             }}
           >
-            {userCity.city}
-          </Typography>
-          {/* city temperature */}
-          <Typography
-            variant='h2'
-            sx={{
-              fontSize: "2.2rem",
-              fontWeight: 500,
-              textTransform: "capitalize",
-            }}
-          >
-            {userCity.temp} °C
-          </Typography>
-          {/* city weather type */}
-          <Typography
-            variant='h3'
-            sx={{
-              fontSize: "2.2rem",
-              fontWeight: 500,
-              textTransform: "capitalize",
-            }}
-          >
-            {userCity.weather}
-          </Typography>
-        </Card>
+            {/* loadingBar container */}
+            <div
+              className={`absolute bg-slate-500 bg-opacity-25 grid place-content-center transition-opacity inset-0 ${
+                isLoading ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {/* loadingBar svg */}
+              <img
+                className='scale-75'
+                src={loadingBar}
+                alt='animated loading bar'
+              />
+            </div>
+            {/* city name */}
+            <Typography
+              variant='h1'
+              sx={{
+                fontSize: "2.5rem",
+                fontWeight: 700,
+                textTransform: "capitalize",
+              }}
+            >
+              {userCity.city}
+            </Typography>
+            {/* city temperature */}
+            <Typography
+              variant='h2'
+              sx={{
+                fontSize: "2.2rem",
+                fontWeight: 500,
+                textTransform: "capitalize",
+              }}
+            >
+              {userCity.temp} °C
+            </Typography>
+            {/* city weather type */}
+            <Typography
+              variant='h3'
+              sx={{
+                fontSize: "2.2rem",
+                fontWeight: 500,
+                textTransform: "capitalize",
+              }}
+            >
+              {userCity.weather}
+            </Typography>
+          </Card>
+        )}
         {/* end of weather card */}
       </Box>
       {/* end of wheather container */}
