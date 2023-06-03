@@ -85,6 +85,7 @@ const Profile = () => {
         >
           <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
             <TextField
+              id='user-name'
               value={userNameInput.value}
               onChange={(e) =>
                 setUserNameInput(() => {
