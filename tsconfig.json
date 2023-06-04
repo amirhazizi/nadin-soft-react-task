@@ -19,7 +19,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
+    // "paths": {
+    //   "locale/*": ["./locale*"]
+    // }
   },
-  "include": ["src"],
+  "include": ["src", "cypress.d.ts", "i18next.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

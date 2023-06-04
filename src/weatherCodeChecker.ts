@@ -1,3 +1,5 @@
+// based on weathercode type
+
 // 0		Clear sky
 // 1, 2, 3	Mainly clear, partly cloudy, and overcast
 // 45, 48	Fog and depositing rime fog
@@ -14,16 +16,17 @@
 
 const weatherCodeChecker = (codeProp: number) => {
   if (codeProp === 0) return "Clear sky"
-  if (codeProp === (1 || 2 || 3)) return "Partly Cloudy"
-  if (codeProp === (45 || 48)) return "Fog"
-  if (codeProp === (51 || 53 || 55)) return "Drizzle"
-  if (codeProp === (56 || 57)) return "Freezing Drizzle"
-  if (codeProp === (61 || 63 || 65)) return "Rain"
-  if (codeProp === (66 || 67)) return "Freezing Rain"
-  if (codeProp === (71 || 73 || 75)) return "Snow Fall"
+  if (codeProp === 1 || codeProp === 2 || codeProp === 3) return "Partly Cloudy"
+  if (codeProp === 45 || codeProp === 48) return "Fog"
+  if (codeProp === 51 || codeProp === 53 || codeProp === 55) return "Drizzle"
+  if (codeProp === 56 || codeProp === 57) return "Freezing Drizzle"
+  if (codeProp === 61 || codeProp === 63 || codeProp === 65) return "Rain"
+  if (codeProp === 66 || codeProp === 67) return "Freezing Rain"
+  if (codeProp === 71 || codeProp === 73 || codeProp === 75) return "Snow Fall"
   if (codeProp === 77) return "Snow Grains"
-  if (codeProp === (80 || 81 || 82)) return "Rain showers"
-  if (codeProp === (85 || 86)) return "Snow showers"
+  if (codeProp === 80 || codeProp === 81 || codeProp === 82)
+    return "Rain showers"
+  if (codeProp === 85 || codeProp === 86) return "Snow showers"
   return "Thunderstorm"
 }
 

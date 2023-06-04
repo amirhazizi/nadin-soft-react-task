@@ -10,17 +10,31 @@ type InitialStateType = {
     editID: number
     editContent: string
   }
+  weather: {
+    city: string
+    code: number
+    temperature: number
+    uploadTime: number
+  }
+  lan: "en" | "fa"
 }
 export const initialState: InitialStateType = {
   user: "",
   theme: "light",
   city: "",
   todoList: {
-    todos: [{ content: "test", id: 5000 }],
+    todos: [],
     isEdit: false,
     editID: 0,
     editContent: "",
   },
+  weather: {
+    city: "",
+    code: 0,
+    temperature: 0,
+    uploadTime: 0,
+  },
+  lan: "en",
 }
 export const storeSlicer = createSlice({
   name: "storeReducer",
@@ -30,7 +44,10 @@ export const storeSlicer = createSlice({
       state.user = action.payload
     },
     addNewTodo: (state, action) => {
-      const newTodo = { content: action.payload, id: new Date().getTime() }
+      const newTodo = {
+        content: action.payload.content,
+        id: action.payload.id,
+      }
       state.todoList.todos = [...state.todoList.todos, newTodo]
     },
     removeTodo: (state, action) => {
@@ -64,9 +81,27 @@ export const storeSlicer = createSlice({
       state.todoList = action.payload.todoList
       state.theme = action.payload.theme
       state.city = action.payload.city
+      state.weather = action.payload.weather
+      state.lan = action.payload.lan
     },
-    updateCity: (state, action) => {
-      state.city = action.payload
+    updateweather: (state, action) => {
+      state.weather.city = action.payload.city
+      state.weather.code = action.payload.code
+      state.weather.temperature = action.payload.temperature
+      state.weather.uploadTime = action.payload.uploadTime
+    },
+    updateProfile: (state, action) => {
+      state.user = action.payload.user
+      state.theme = action.payload.theme
+      state.city = action.payload.city
+    },
+    updateTheme: (state, action) => {
+      state.theme = action.payload
+    },
+    updateLanguage: (state) => {
+      const prevLan = state.lan
+      if (prevLan === "en") state.lan = "fa"
+      else state.lan = "en"
     },
   },
 })
@@ -78,6 +113,9 @@ export const {
   finishEditTodo,
   startEditTodo,
   getFromLocalStorage,
-  updateCity,
+  updateweather,
+  updateProfile,
+  updateTheme,
+  updateLanguage,
 } = storeSlicer.actions
 export default storeSlicer.reducer

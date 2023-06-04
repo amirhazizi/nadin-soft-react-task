@@ -27,7 +27,7 @@ const UserModal = () => {
   } // form submit handler
 
   return (
-    <Modal open={user ? false : true}>
+    <Modal id='user-modal' open={user ? false : true}>
       {/* form */}
       <form className='user-form' onSubmit={submitHandle}>
         {/* form container */}
