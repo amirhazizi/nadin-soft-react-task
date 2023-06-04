@@ -14,7 +14,7 @@ import { lightTheme, darkTheme } from "../themes" // themes
 import UserModal from "./UserModal" // user modal
 import Navbar from "./Navbar" // Nav
 import Sidebar from "./Sidebar" // Sidebar
-import FixedSideBar from "./FIxedSidebar" // fixed Sidebar
+import FixedSideBar from "./FixedSidebar" // fixed Sidebar
 
 // import I18nInit from "../i18n.init" // i18n init f()
 
