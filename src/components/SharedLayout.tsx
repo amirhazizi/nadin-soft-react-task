@@ -16,7 +16,7 @@ import Navbar from "./Navbar" // Nav
 import Sidebar from "./Sidebar" // Sidebar
 import FixedSideBar from "./FIxedSidebar" // fixed Sidebar
 
-import i18nInit from "../i18n.init" // i18n init f()
+// import I18nInit from "../i18n.init" // i18n init f()
 
 const SharedLayout = () => {
   const { user, city, theme, todoList, weather, lan } = useSelector(
@@ -29,7 +29,7 @@ const SharedLayout = () => {
     initialState
   ) // local Storage custom hook
 
-  i18nInit(lan) // i18n init with language redux
+  // I18nInit(lan) // i18n init with language redux
 
   useEffect(() => {
     saveLocalStorageState({ user, city, theme, todoList, weather, lan })

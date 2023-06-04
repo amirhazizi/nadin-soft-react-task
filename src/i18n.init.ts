@@ -3,7 +3,6 @@ import { initReactI18next } from "react-i18next"
 
 import translationEN from "../locale/en.json" // en translation.json
 import translationFA from "../locale/fa.json" // fa translation.json
-
 const i18nInit = (lan: string) => {
   i18n.use(initReactI18next).init({
     resources: {
