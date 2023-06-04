@@ -59,6 +59,7 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
           >
             {/* menu btn */}
             <IconButton
+              id='menu-btn'
               size='large'
               color='inherit'
               sx={{

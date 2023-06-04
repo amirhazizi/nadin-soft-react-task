@@ -24,6 +24,7 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
   ] //navlinks for navigate
   return (
     <Drawer
+      id='sidebar'
       sx={{
         display: "grid",
         gap: "1rem 0",
@@ -45,7 +46,7 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
           margin: lan === "fa" ? "0 auto 0 0" : "0 0 0 auto",
         }}
       >
-        <IconButton onClick={() => setIsSidebar(false)}>
+        <IconButton id='close-btn' onClick={() => setIsSidebar(false)}>
           <GrFormClose className='todo-btn' />
         </IconButton>
       </Box>
