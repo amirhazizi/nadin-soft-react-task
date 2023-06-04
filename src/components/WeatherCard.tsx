@@ -1,3 +1,5 @@
+//weather card
+
 import loadingBar from "../assests/Eclipse-loading.svg?url" // svg animate loading bar
 import { Card, Typography } from "@mui/material" //mui
 
@@ -8,8 +10,9 @@ type WeatherCardParams = {
   temperature: number
   code: number
   isLoading: boolean
-}
-import { useTranslation } from "react-i18next"
+} // weather card paramas types
+
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 
 export default function WeatherCard({
   city,
@@ -17,7 +20,7 @@ export default function WeatherCard({
   code,
   isLoading,
 }: WeatherCardParams) {
-  const { t } = useTranslation()
+  const { t } = useTranslation() // t() from i18n
   return (
     <Card
       sx={{

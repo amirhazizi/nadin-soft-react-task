@@ -28,32 +28,29 @@ import {
 
 import { useAutoAnimate } from "@formkit/auto-animate/react" //autoAnimate
 
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 
 const TodoList = () => {
-  const todos = useSelector(
-    (state: RootState) => state.storeReducer.todoList.todos
-  ) //todos redux state
-  const { theme, lan } = useSelector((state: RootState) => state.storeReducer) //theme redux state
-  const isEdit = useSelector(
-    (state: RootState) => state.storeReducer.todoList.editID
-  ) //isEdir flag redux state
-
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState("") //textfield value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
   const [parent] = useAutoAnimate() //auto animate ref
+
+  const { theme, lan } = useSelector((state: RootState) => state.storeReducer) //theme and language redux state
+  const { todos, editID: isEdit } = useSelector(
+    (state: RootState) => state.storeReducer.todoList
+  ) //todos and edit flag redux state
+  const dispatch = useDispatch()
+
+  const { t } = useTranslation() // t() from i18n
   const handleSubmit = (e: React.FormEvent) => {
-    //handle Submit f()
     e.preventDefault()
     if (!inputValue) return //if inputvalue empty return
+    //new todo if !editflag
     if (!isEdit)
       dispatch(addNewTodo({ content: inputValue, id: new Date().getTime() }))
-    //new todo if !editflag
-    else dispatch(finishEditTodo(inputValue)) // edit target todo
+    else dispatch(finishEditTodo(inputValue)) // else edit target todo
     setInputValue("") // empty textfield
-  }
+  } //handle Submit f()
   return (
     <Box
       sx={{
@@ -105,6 +102,7 @@ const TodoList = () => {
             borderColor: "secondary.main",
           }}
         >
+          {/* input */}
           <TextField
             InputProps={{
               sx: {
@@ -146,6 +144,7 @@ const TodoList = () => {
               },
             }}
           />
+          {/* submit btn */}
           <Button
             disabled={inputValue ? false : true}
             sx={{

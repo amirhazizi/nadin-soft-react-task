@@ -1,25 +1,27 @@
 import { Drawer, List, IconButton, Divider, Box } from "@mui/material" // mui
+
 import { NavLink } from "react-router-dom" // react router
-import { GrFormClose } from "react-icons/gr"
-import { useTranslation } from "react-i18next"
 
-import { useSelector } from "react-redux"
-import { RootState } from "../redux/store"
+import { GrFormClose } from "react-icons/gr" // react icons
 
+import { useSelector } from "react-redux" //redux selector
+import { RootState } from "../redux/store" //redux rootstate type
+
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 type SidebarParams = {
   setIsSidebar: (a: boolean) => void
   isSidebar: boolean
-}
+} // sidebar params type
 
 const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
-  const { lan } = useSelector((state: RootState) => state.storeReducer)
-  const { t } = useTranslation()
+  const { lan } = useSelector((state: RootState) => state.storeReducer) // language from redux
+  const { t } = useTranslation() // t() from i18n
   const navLinks = [
     { text: t("Dashboard"), link: "/dashboard" },
     { text: t("Todos"), link: "/todolist" },
     { text: t("Weather"), link: "/weather" },
     { text: t("Profile"), link: "/profile" },
-  ]
+  ] //navlinks for navigate
   return (
     <Drawer
       sx={{
@@ -32,9 +34,10 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
         },
       }}
       variant='persistent'
-      anchor={lan === "en" ? "left" : "right"}
+      anchor={lan === "en" ? "left" : "right"} // based on lan onchor changes
       open={isSidebar}
     >
+      {/* close btn container */}
       <Box
         sx={{
           p: 1,
@@ -46,7 +49,9 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
           <GrFormClose className='todo-btn' />
         </IconButton>
       </Box>
+      {/* end of close btn container */}
       <Divider />
+      {/* navlinks container */}
       <List
         sx={{
           display: "grid",
@@ -55,12 +60,16 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
           textAlign: lan === "fa" ? "right" : "left",
         }}
       >
+        {/* map over navlinks */}
         {navLinks.map((singleNav, index) => (
+          // single navlink
           <NavLink
             onClick={() => setIsSidebar(false)}
             to={singleNav.link}
             key={index}
-            className={({ isActive, isPending }) =>
+            className={(
+              { isActive, isPending } //style changes of user was that path
+            ) =>
               isPending
                 ? "text-red-700"
                 : isActive
@@ -72,6 +81,7 @@ const Sidebar = ({ setIsSidebar, isSidebar }: SidebarParams) => {
           </NavLink>
         ))}
       </List>
+      {/* end of navlinks container */}
     </Drawer>
   )
 }

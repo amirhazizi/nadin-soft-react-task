@@ -9,9 +9,11 @@ import { FormControl, TextField, Button, Box } from "@mui/material" //mui
 import axios from "axios" //axios
 
 import { lightTheme } from "../themes" // themes
-import WeatherCard from "./WeatherCard"
 
-import { useTranslation } from "react-i18next"
+import WeatherCard from "./WeatherCard" //weather card
+
+import { useTranslation } from "react-i18next" // translation i18n custom hook
+
 const baseGetWeatherURL = "https://api.open-meteo.com/v1" //baseURL getWeather
 const baseGetLocationURL = "https://geocoding-api.open-meteo.com/v1/" //baseURL getlocation by city
 
@@ -28,13 +30,13 @@ const Weathermeteo = () => {
   const {
     lan,
     weather: { city, code, temperature, uploadTime },
-  } = useSelector((state: RootState) => state.storeReducer) //city state from redux
+  } = useSelector((state: RootState) => state.storeReducer) //weather and langugage state from redux
   const dispatch = useDispatch() //dispatch
-  // const [userCity, setUserCity] = useState(intialCity) //city weather info
+
   const [userInput, setUserInput] = useState("") // input value
   const [isEmpty, setIsEmpty] = useState(false) //textfield empty flag
   const [isLoading, setIsLoading] = useState(false) // loadingBar toggle
-  const { t } = useTranslation()
+  const { t } = useTranslation() // t() from i18n
 
   const fetchWeather = async (cityParam: string) => {
     setIsLoading(true) //show loading bar
@@ -58,8 +60,8 @@ const Weathermeteo = () => {
           code: weathercode,
           uploadTime: new Date().getTime(),
         })
-      ) // upload to redux and localstorage
-      // update city weather details
+      ) // update city weather details
+
       setIsLoading(false) // unshow loadingBar
     } catch (error) {
       console.log(error) //show error if request failed

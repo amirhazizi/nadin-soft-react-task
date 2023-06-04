@@ -1,10 +1,8 @@
 import { useState } from "react" // react hooks
-import allCities from "../assests/iranCities.json"
+
 import { useDispatch, useSelector } from "react-redux" // redux
 import { updateProfile } from "../redux/storeSlicer" // redux updateCity dispatch
 import { RootState } from "../redux/store"
-
-import { useTranslation } from "react-i18next"
 
 import {
   FormControl,
@@ -22,28 +20,33 @@ import {
 
 import { lightTheme } from "../themes" // themes
 
+import allCities from "../assests/iranCities.json" // all iran cities
+
+import { useTranslation } from "react-i18next" // translation i18n custom hook
+
 const initalInput = { value: "", isEmpty: false }
 
 const Profile = () => {
-  const { lan } = useSelector((state: RootState) => state.storeReducer)
-  const [userNameInput, setUserNameInput] = useState(initalInput)
-  const [userThemeInput, setUserThemeInput] = useState(initalInput)
-  const [userCityInput, setUserCityInput] = useState(initalInput)
-  const [isSubmited, setIsSubmited] = useState(false)
-  const dispatch = useDispatch()
-  const { t } = useTranslation()
+  const [userNameInput, setUserNameInput] = useState(initalInput) // name input value
+  const [userThemeInput, setUserThemeInput] = useState(initalInput) // theme select value
+  const [userCityInput, setUserCityInput] = useState(initalInput) // city select value
+  const [isSubmited, setIsSubmited] = useState(false) // alert flag if submit happend
+
+  const { lan } = useSelector((state: RootState) => state.storeReducer) // language from redux
+  const dispatch = useDispatch() // redux dispatch
+  const { t } = useTranslation() // t() from i18n
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!userNameInput.value || !userThemeInput.value || !userCityInput.value)
-      return //if inputvalue empty return
+      return //if one of the input values was empty return
     dispatch(
       updateProfile({
         user: userNameInput.value,
         theme: userThemeInput.value,
         city: userCityInput.value,
       })
-    ) // edit target todo
+    ) // update user profile
     setUserNameInput(initalInput) // empty name textfield
     setUserThemeInput(initalInput) // empty theme textfield
     setUserCityInput(initalInput) // empty city textfield
@@ -52,6 +55,7 @@ const Profile = () => {
       setIsSubmited(false)
     }, 2500) // unshow alert after 2.5s
   } //handle Submit f()
+
   return (
     <Box
       sx={{
@@ -65,12 +69,17 @@ const Profile = () => {
         },
       }}
     >
+      {/* form */}
       <form onSubmit={handleSubmit} className=' space-y-10'>
+        {/* snackbar */}
         <Snackbar open={isSubmited}>
+          {/* success alert if user submited */}
           <Alert sx={{ width: "100%" }} severity='success'>
-            Profile Updated!
+            {t("Profile Updated!")}
           </Alert>
         </Snackbar>
+        {/* end of snackbar */}
+        {/* form header */}
         <Typography
           sx={{ color: "secondary.main", fontWeight: 700 }}
           variant='h1'
@@ -79,6 +88,9 @@ const Profile = () => {
         >
           {t("User Profile")}
         </Typography>
+        {/* end of form header */}
+
+        {/* form elements container */}
         <Box
           sx={{
             display: "flex",
@@ -88,6 +100,7 @@ const Profile = () => {
             color: "secondary.main",
           }}
         >
+          {/* user input container */}
           <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
             <TextField
               id='user-name'
@@ -105,7 +118,7 @@ const Profile = () => {
               InputProps={{
                 sx: {
                   "& input": {
-                    textAlign: lan === "fa" ? "right" : "left",
+                    textAlign: lan === "fa" ? "right" : "left", // text input align base on language
                   },
                 },
               }}
@@ -123,6 +136,7 @@ const Profile = () => {
                 },
               }}
             />
+            {/* form helper if user empty the value */}
             {userNameInput.isEmpty && (
               <FormHelperText
                 sx={{
@@ -136,7 +150,11 @@ const Profile = () => {
               </FormHelperText>
             )}
           </FormControl>
+          {/* end of user input container */}
+
+          {/* theme select container */}
           <FormControl sx={{ display: "grid", gap: ".75rem 0" }}>
+            {/* label */}
             <InputLabel
               error={userThemeInput.isEmpty}
               sx={{
@@ -153,6 +171,7 @@ const Profile = () => {
             >
               {t("Theme :")}
             </InputLabel>
+            {/* select */}
             <Select
               sx={{
                 bgcolor: "white",
@@ -170,6 +189,7 @@ const Profile = () => {
               color={`${userThemeInput.isEmpty ? "error" : "info"}`}
               error={userThemeInput.isEmpty}
             >
+              {/* single option */}
               <MenuItem
                 sx={{
                   justifyContent: lan === "fa" ? "flex-end" : "flex-start",
@@ -178,6 +198,7 @@ const Profile = () => {
               >
                 {t("none")}
               </MenuItem>
+              {/* single option */}
               <MenuItem
                 sx={{
                   justifyContent: lan === "fa" ? "flex-end" : "flex-start",
@@ -186,6 +207,7 @@ const Profile = () => {
               >
                 {t("light")}
               </MenuItem>
+              {/* single option */}
               <MenuItem
                 sx={{
                   justifyContent: lan === "fa" ? "flex-end" : "flex-start",
@@ -195,6 +217,7 @@ const Profile = () => {
                 {t("dark")}
               </MenuItem>
             </Select>
+            {/* form helper if user empty the value */}
             {userThemeInput.isEmpty && (
               <FormHelperText
                 sx={{
@@ -208,7 +231,11 @@ const Profile = () => {
               </FormHelperText>
             )}
           </FormControl>
+          {/* end of theme select container */}
+
+          {/* city select container */}
           <FormControl>
+            {/* label */}
             <InputLabel
               color='info'
               error={userCityInput.isEmpty}
@@ -224,6 +251,7 @@ const Profile = () => {
             >
               {t("City :")}
             </InputLabel>
+            {/* select */}
             <Select
               sx={{
                 bgcolor: "white",
@@ -241,6 +269,7 @@ const Profile = () => {
               color={`${userCityInput.isEmpty ? "error" : "info"}`}
               error={userCityInput.isEmpty}
             >
+              {/* none option */}
               <MenuItem
                 sx={{
                   justifyContent: lan === "fa" ? "flex-end" : "flex-start",
@@ -249,6 +278,7 @@ const Profile = () => {
               >
                 {t("none")}
               </MenuItem>
+              {/* allcities options */}
               {allCities.cities.map((city, index) => {
                 return (
                   <MenuItem
@@ -263,6 +293,7 @@ const Profile = () => {
                 )
               })}
             </Select>
+            {/* form helper if user empty the value */}
             {userCityInput.isEmpty && (
               <FormHelperText
                 sx={{
@@ -276,13 +307,16 @@ const Profile = () => {
               </FormHelperText>
             )}
           </FormControl>
+          {/* end of city select container */}
         </Box>
+        {/* end of form elements container */}
+        {/* submit btn */}
         <Button
           disabled={
             userNameInput.value && userThemeInput.value && userCityInput.value
               ? false
               : true
-          }
+          } // disabled if all input was empty
           variant='contained'
           sx={{
             color: "green",
@@ -305,6 +339,7 @@ const Profile = () => {
           {t("submit")}
         </Button>
       </form>
+      {/* end of form */}
     </Box>
   )
 }

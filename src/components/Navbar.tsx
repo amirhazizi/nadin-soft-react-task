@@ -1,5 +1,3 @@
-import { useState } from "react" // react
-
 import {
   AppBar,
   Toolbar,
@@ -9,29 +7,27 @@ import {
   Box,
   Button,
 } from "@mui/material" //mui
+import { lightTheme } from "../themes" // themes
 
+//react icons
 import { AiOutlineMenu } from "react-icons/ai"
 import { RiMoonClearLine, RiSunFill } from "react-icons/ri"
 
 import { useSelector, useDispatch } from "react-redux" // state selector
 import { RootState } from "../redux/store" // state type (typescript required)
-import { updateTheme, updateLanguage } from "../redux/storeSlicer" // redux dispatch
+import { updateTheme, updateLanguage } from "../redux/storeSlicer" // redux dispatches
 
-import { lightTheme } from "../themes" // themes
-
-import i18next from "i18next"
-
-import { useTranslation } from "react-i18next"
+import i18next from "i18next" //i18next
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 
 type NavParams = {
   setIsSidebar: (a: boolean) => void
 }
 const Navbar = ({ setIsSidebar }: NavParams) => {
-  const { theme, lan } = useSelector((state: RootState) => state.storeReducer) // user state
-
-  const { t } = useTranslation()
-  const navbarText = t("React Test")
+  const { theme, lan } = useSelector((state: RootState) => state.storeReducer) // theme and language state
   const dispatch = useDispatch() //redux distpatch
+
+  const { t } = useTranslation() // t() from i18n
   return (
     <AppBar
       sx={{
@@ -42,6 +38,7 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
         },
       }}
     >
+      {/* container */}
       <Container>
         <Toolbar
           sx={{
@@ -51,6 +48,7 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
             width: "100%",
           }}
         >
+          {/* menu btn and header container */}
           <Box
             sx={{
               display: "flex",
@@ -59,6 +57,7 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
               justifyContent: "space-between",
             }}
           >
+            {/* menu btn */}
             <IconButton
               size='large'
               color='inherit'
@@ -71,15 +70,20 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
             >
               <AiOutlineMenu />
             </IconButton>
+            {/* appbar header */}
             <Typography
               variant='h1'
               component='div'
               sx={{ fontSize: "1.5rem", fontWeight: 500, alignSelf: "center" }}
             >
-              {navbarText}
+              {t("React Test")}
             </Typography>
           </Box>
+          {/* end of menu btn and header container */}
+
+          {/* theme and lanswitcher container */}
           <Box sx={{ display: "flex", gap: "0 1rem" }}>
+            {/* language switcher */}
             <Button
               sx={{ color: "secondary.main" }}
               onClick={() => {
@@ -93,6 +97,7 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
             >
               {lan}
             </Button>
+            {/* theme switcher */}
             <IconButton
               size='small'
               onClick={() => {
@@ -107,8 +112,10 @@ const Navbar = ({ setIsSidebar }: NavParams) => {
               )}
             </IconButton>
           </Box>
+          {/* end of theme and lanswitcher container */}
         </Toolbar>
       </Container>
+      {/* end of container */}
     </AppBar>
   )
 }

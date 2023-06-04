@@ -6,7 +6,8 @@ import { useSelector } from "react-redux" //redux state selector
 import { RootState } from "../redux/store" // root State type
 
 import { lightTheme } from "../themes" // themes
-import { useTranslation, initReactI18next } from "react-i18next"
+
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 
 const greetingChanger = (time: Date) => {
   const hour = time.getHours()
@@ -35,7 +36,7 @@ const Dashboard = () => {
       })
     }, 1000)
     return () => clearInterval(loop) //cleanup useEffect function
-  }, [])
+  }, []) // runs in initial render or user render
 
   return (
     <Box
@@ -53,6 +54,7 @@ const Dashboard = () => {
         },
       }}
     >
+      {/* clock */}
       <Typography
         sx={{
           fontSize: "6rem",
@@ -66,6 +68,7 @@ const Dashboard = () => {
         {time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()}:
         {time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}
       </Typography>
+      {/* greeting */}
       <Typography
         sx={{
           fontSize: "2rem",

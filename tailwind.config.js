@@ -10,6 +10,11 @@ export default {
         lg: "976px",
         lx: "1440px",
       },
+      // colors
+      colors: {
+        clLightBG: "#ffffff",
+        clDarkBG: "#212121",
+      },
     },
   },
   plugins: [],

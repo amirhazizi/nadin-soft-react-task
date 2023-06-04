@@ -1,21 +1,22 @@
 import { List, Box } from "@mui/material" // mui
+import { lightTheme } from "../themes" // themes
+
 import { NavLink } from "react-router-dom" // react router
 
-import { lightTheme } from "../themes" // themes
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux" //redux selector
+import { RootState } from "../redux/store" //redux rootstate type
 
-import { useTranslation } from "react-i18next"
-import { RootState } from "../redux/store"
+import { useTranslation } from "react-i18next" // translation i18n custom hook
 
 const FixedSideBar = () => {
-  const { t } = useTranslation()
-  const { lan } = useSelector((state: RootState) => state.storeReducer)
+  const { lan } = useSelector((state: RootState) => state.storeReducer) // language from redux
+  const { t } = useTranslation() // t() from i18n
   const navLinks = [
     { text: t("Dashboard"), link: "/dashboard" },
     { text: t("Todos"), link: "/todolist" },
     { text: t("Weather"), link: "/weather" },
     { text: t("Profile"), link: "/profile" },
-  ]
+  ] //navlinks for navigate
   return (
     <Box
       sx={{
@@ -31,6 +32,7 @@ const FixedSideBar = () => {
         },
       }}
     >
+      {/* navlinks container */}
       <List
         sx={{
           display: "grid",
@@ -40,11 +42,15 @@ const FixedSideBar = () => {
           textAlign: lan === "fa" ? "right" : "left",
         }}
       >
+        {/* map over navLinks */}
         {navLinks.map((singleNav, index) => (
+          // single navlink
           <NavLink
             to={singleNav.link}
             key={index}
-            className={({ isActive, isPending }) =>
+            className={(
+              { isActive, isPending } //style changes of user was that path
+            ) =>
               isPending
                 ? "text-red-700"
                 : isActive
@@ -56,6 +62,7 @@ const FixedSideBar = () => {
           </NavLink>
         ))}
       </List>
+      {/* end of navlinks container */}
     </Box>
   )
 }
