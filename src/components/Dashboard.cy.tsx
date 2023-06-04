@@ -1,5 +1,4 @@
 import Dashboard from "./Dashboard"
-import * as cypress from "cypress/react"
 import { Provider } from "react-redux"
 import { store } from "../redux/store"
 import { updateUser } from "../redux/storeSlicer"

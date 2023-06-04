@@ -1,14 +1,5 @@
-import { useEffect } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 export default function Error() {
-  const navigate = useNavigate()
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      navigate("/")
-      console.log("ok")
-    }, 1000)
-    // return clearTimeout(timeout)
-  }, [navigate])
   return (
     <main className='grid min-h-screen place-content-center'>
       <div className=' text-center text-lg space-y-5'>
