@@ -36,6 +36,7 @@ const UserModal = () => {
             position: "absolute",
             top: "50%",
             left: "50%",
+            maxWidth: "20rem",
             transform: "translate(-50%, -50%)",
             bgcolor: "primary.main",
             boxShadow: 24,

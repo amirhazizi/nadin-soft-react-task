@@ -129,6 +129,7 @@ const Profile = () => {
                   color: "primary.light",
                   bgcolor: "white",
                   px: 0.2,
+                  width: lan === "fa" ? "2.5rem" : "3.5rem",
                   left: lan === "fa" ? "unset" : 0,
                   right: lan === "fa" ? "2rem" : 0,
                   fontWeight: lan === "fa" ? 700 : 500,
