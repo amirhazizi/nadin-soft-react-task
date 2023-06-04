@@ -12,8 +12,8 @@ import translationEN from "../locale/en.json" // en translation.json
 import translationFA from "../locale/fa.json" // fa translation.json
 
 const language = JSON.parse(
-  localStorage.getItem("nadin-soft-react-test") || ""
-) || { lan: "en" }
+  localStorage.getItem("nadin-soft-react-test") || `{"lan":"en"}`
+)
 
 i18n.use(initReactI18next).init({
   resources: {

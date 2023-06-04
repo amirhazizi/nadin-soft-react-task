@@ -4,7 +4,14 @@ import { useSelector, useDispatch } from "react-redux" // redux
 import { RootState } from "../redux/store" //rootState type
 import { updateweather } from "../redux/storeSlicer" // redux updateCity dispatch
 
-import { FormControl, TextField, Button, Box } from "@mui/material" //mui
+import {
+  FormControl,
+  TextField,
+  Button,
+  Box,
+  Alert,
+  Snackbar,
+} from "@mui/material" //mui
 
 import axios from "axios" //axios
 
@@ -189,6 +196,12 @@ const Weathermeteo = () => {
         {/* end of weather card */}
       </Box>
       {/* end of wheather container */}
+      <Snackbar open={isLoading}>
+        {/* success alert if user submited */}
+        <Alert sx={{ width: "100%" }} severity='info'>
+          {t("Please Wait")}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
